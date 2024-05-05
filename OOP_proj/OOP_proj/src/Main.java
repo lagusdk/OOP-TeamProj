@@ -1,7 +1,7 @@
 // SwingLess 진짜 프로젝트 파일(일단은)
 import java.util.Scanner;
 
-public class Hamburger {
+public class Main {
 
 	public static void Simulation() {
 		// 메인 시뮬레이션
