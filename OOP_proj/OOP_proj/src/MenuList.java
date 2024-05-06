@@ -66,7 +66,6 @@ public class MenuList {
     	beverages.add(new Beverage("사이다", 2000, 15));
     	beverages.add(new Beverage("아이스티", 2300, 25));
     	beverages.add(new Beverage("아메리카노", 2500, 25));
-
     }
   
     // 메뉴 추가한거 확인용(메뉴 리스트 수정하고 저장 후 실행해서 확인 가능 in Console)
