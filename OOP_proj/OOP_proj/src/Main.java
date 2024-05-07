@@ -322,7 +322,7 @@ public class Main {
 			System.out.println("");
 			
 			System.out.println("[system] 메인 메뉴");
-			System.out.println("롯X리아에 입장하시겠습니까?");
+			System.out.println("[system] 롯데리아에 입장하시겠습니까?");
 			
 			if(answer()) {
 				Simulation();
