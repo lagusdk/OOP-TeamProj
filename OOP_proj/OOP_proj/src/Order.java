@@ -1,5 +1,4 @@
 // 주문 내역 저장 함수를 제공하는 클래스
-
 import java.util.ArrayList;
 import java.util.Scanner;
 

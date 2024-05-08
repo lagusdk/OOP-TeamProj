@@ -4,7 +4,7 @@ public class Main {
 	static MenuList menulist = new MenuList(); 
 	static Scanner scanner = new Scanner(System.in);
 	
-	static int packaging_or_not = -1;
+	static int packaging_or_not = -1; // 포장 혹은 매장 선택 변수
 	
 	public static void main(String[] args) {
 		// 메인 화면
@@ -22,6 +22,7 @@ public class Main {
 			}
 			else {
 				System.out.println("[system] 시뮬레이션 종료");
+				System.out.println("=========================================");
 				break;
 			}
 		}
@@ -33,7 +34,7 @@ public class Main {
 	// main 시뮬레이션 함수
 	public static void Simulation() {
 		// 메인 시뮬레이션	
-		System.out.println("[system] 롯X리아 입장");
+		System.out.println("[system] 롯데리아 입장");
 		System.out.println("");
 		
 		System.out.println("[system] 키오스크 주문 메뉴");
@@ -65,9 +66,11 @@ public class Main {
 			System.out.println("주문을 계속할까?");
 			loop_or_not = Order.OrderMethod.answer();
 			
-			System.out.println("===주문 내역==="); // 임시
+			// 임시 주문 내역 확인 코드(메뉴 구성 출력, 은송)
+			System.out.println("===주문 내역==="); 
 			Order.OrderHistory.printOrder();
 			System.out.println("==============="); 
+			
 		} while(loop_or_not);
 		
 		// Todo 주문 내역 출력하기 구현
