@@ -12,6 +12,7 @@ public class Order {
 	        public int time;	// 대기 시간
 	        public String etc;
 	        public int number;	// 개수
+	        static int totalAmount = 0;	// 주문 총액
 
 	        static ArrayList<OrderHistory> orderhistory = new ArrayList<>();
 	        
@@ -29,8 +30,10 @@ public class Order {
 		    // 주문 내역을 출력하는 함수(임시, 두 번씩 출력되는 오류가 있으니 추후 수정 요망)
 		    public static void printOrder() {
 		    	for (OrderHistory item : orderhistory) {
-	                System.out.println(item.name + "\t(" + item.etc + ")");
+	                System.out.println(item.name + "\t(" + item.etc + ")\t" + item.price + "원");
+	                totalAmount += item.price;
 	            }
+		    	System.out.println("\n할인 전 총액\t" + totalAmount + "원");
 	        }
 	    }
 		

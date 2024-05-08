@@ -71,19 +71,19 @@ public class MenuList {
     // 메뉴 추가한거 확인용(메뉴 리스트 수정하고 저장 후 실행해서 확인 가능 in Console)
     // 나중에는 지워도될듯
     public static void printMenu() {
-        System.out.println("햄버거 메뉴 리스트");
+        System.out.println("[ 햄버거 메뉴 리스트 ]");
         for (MenuItem item : hamburgers) {
-            System.out.println("\t"+ item.name + "\t | \t"+ "가격: " + item.price + "원"+ "\t"+ "대기시간: " + item.time + "초");
+            System.out.println(item.name + "\t |   "+ "W " + item.price + "\t"+ item.time + " sec");
         }
 
-        System.out.println("\n디저트 메뉴 리스트");
+        System.out.println("\n[ 디저트 메뉴 리스트 ]");
         for (MenuItem item : desserts) {
-        	System.out.println("\t"+ item.name + "\t | \t"+ "가격: " + item.price + "원"+ "\t"+ "대기시간: " + item.time + "초");
+        	System.out.println(item.name + "\t |   "+ "W " + item.price + "\t"+ item.time + " sec");
         }
 
-        System.out.println("\n음료 메뉴 리스트");
+        System.out.println("\n[ 음료 메뉴 리스트 ]");
         for (MenuItem item : beverages) {
-        	System.out.println("\t"+ item.name + "    \t | \t"+ "가격: " + item.price + "원"+ "\t"+ "대기시간: " + item.time + "초");
+        	System.out.println(item.name + "\t |   "+ "W " + item.price+ "\t"+ item.time + " sec");
         }
     }
         

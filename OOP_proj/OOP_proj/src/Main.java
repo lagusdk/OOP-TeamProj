@@ -5,14 +5,16 @@ public class Main {
 	static Scanner scanner = new Scanner(System.in);
 	
 	static int packaging_or_not = -1; // 포장 혹은 매장 선택 변수
+	static boolean OrderContinue=true;
 	
 	public static void main(String[] args) {
 		// 메인 화면
 		Scanner scanner = new Scanner(System.in);
 		
-		while(true) {
+		while(OrderContinue == true) {
 			System.out.println("===== 객체지향프로그래밍 팀프로젝트 =====");
 			System.out.println("");
+			
 			
 			System.out.println("[system] 메인 메뉴");
 			System.out.println("[system] 롯데리아에 입장하시겠습니까?");
@@ -63,15 +65,16 @@ public class Main {
 		do {
 			Order.OrderMethod.OrderLoops(); // 메뉴 선택
 			
-			System.out.println("주문을 계속할까?");
+			System.out.println("\n주문을 계속할까?");
 			loop_or_not = Order.OrderMethod.answer();
 			
-			// 임시 주문 내역 확인 코드(메뉴 구성 출력, 은송)
-			System.out.println("===주문 내역==="); 
-			Order.OrderHistory.printOrder();
-			System.out.println("==============="); 
-			
 		} while(loop_or_not);
+		
+		System.out.println("========주문 내역========"); 
+		Order.OrderHistory.printOrder();
+		System.out.println("======================\n"); 
+		OrderContinue = false;
+		
 		
 		// Todo 주문 내역 출력하기 구현
 		// Todo 결제하기 구현
