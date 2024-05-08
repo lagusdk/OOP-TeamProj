@@ -1,10 +1,1 @@
-/MenuList$MenuItem.class
-/Main.class
-<<<<<<< HEAD
-=======
-/MenuList$Beverage.class
-/MenuList$Dessert.class
-/MenuList$Hamburger.class
-/MenuList.class
-/Main$OrderHistory.class
->>>>>>> branch 'main' of https://github.com/lagusdk/OOP-TeamProj.git
+/Pickup.class
