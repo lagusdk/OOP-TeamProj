@@ -158,7 +158,6 @@ public class Order {
 			        	else if(answer.equals("양념감자")) {
 			        		Optioning_menu(answer, item);
 			        	}
-			            new OrderHistory(item.name, item.price, item.time, null, 1);
 			            return true;
 			        }
 			    }
