@@ -66,7 +66,7 @@ public class MenuList {
     	new Dessert("치킨휠레", 3100, 300);
 
     	new Dessert("소프트콘", 900, 60);
-    	new Beverage("토네이도", 2800, 60);
+    	new Dessert("토네이도", 2800, 60);
     	
     	new Beverage("콜라", 2000, 15);
     	new Beverage("사이다", 2000, 15);

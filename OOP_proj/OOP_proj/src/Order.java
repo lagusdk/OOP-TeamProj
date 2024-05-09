@@ -12,7 +12,6 @@ public class Order {
 	        public int time;	// 대기 시간
 	        public String etc;
 	        public int number;	// 개수
-	        static int totalAmount = 0;	// 주문 총액
 
 	        static ArrayList<OrderHistory> orderhistory = new ArrayList<>();
 	        
@@ -30,10 +29,8 @@ public class Order {
 		    // 주문 내역을 출력하는 함수(임시, 두 번씩 출력되는 오류가 있으니 추후 수정 요망)
 		    public static void printOrder() {
 		    	for (OrderHistory item : orderhistory) {
-		    		System.out.println(item.name + "\t(" + item.etc + ")\t" + item.price + "원");
-	                totalAmount += item.price;
+	                System.out.println(item.name + "\t(" + item.etc + ")");
 	            }
-		    	System.out.println("\n할인 전 총액\t" + totalAmount + "원");
 	        }
 	    }
 		
@@ -50,26 +47,28 @@ public class Order {
 					System.out.print(">>");
 					buffer = scanner.nextLine();
 					answer = buffer;
-
+					
 					// 단어 '메뉴'와 매치되는 경우
 					if(buffer.matches(".*(메뉴|뭐|종류)+.*")) {
 						MenuList.printMenu();	// MenuList의 함수 사용, 필요 시 변경
 					}
-					// 음식 이름과 매치되는 경우
-					if(buffer.matches(".*(데리|(치킨버거)|새우|불고기)+.*")) {	// 버거와 매치되는 경우 
-						single_or_set(buffer, answer);
-						loop_or_not = false;
-						}
-					else if(Order_desserts(answer) || Order_beverages(answer)) { // 음료 혹은 디저트와 매치되는 경우
-								loop_or_not = false;
-					}
 					else {
-						System.out.println("[키오스크] 올바른 메뉴를 선택해주세요.");	// 매치되지 않는 경우
-						loop_or_not = true;
+						// 음식 이름과 매치되는 경우
+						if(buffer.matches(".*(데리|(치킨버거)|새우|불고기)+.*")) {	// 버거와 매치되는 경우 
+							single_or_set(buffer, answer);
+							loop_or_not = false;
 						}
+						else if(Order_desserts(answer) || Order_beverages(answer)) { // 음료 혹은 디저트와 매치되는 경우
+								loop_or_not = false;
+						}
+						else {
+							System.out.println("[키오스크] 올바른 메뉴를 선택해주세요.");	// 매치되지 않는 경우
+							loop_or_not = true;
+						}
+					}
 				} while(loop_or_not);
 			}
-		
+			
 			// 버거 세트와 단품 여부를 결정하는 함수
 			public static void single_or_set(String buffer, String answer) {
 				while(true) {
@@ -88,14 +87,14 @@ public class Order {
 					}
 				}
 			}
-
-
+			
+			
 			// 버거 단품을 주문 내역에 추가하는 함수
 			public static void Order_burger_single(String answer) {
-				if(answer.matches(".*데리.*"))		Optioning_menu("데리버거");
-				else if(answer.matches(".*치킨.*"))	Optioning_menu("치킨버거");
-				else if(answer.matches(".*새우.*"))	Optioning_menu("새우버거");
-				else if(answer.matches(".*불고기.*"))	Optioning_menu("불고기버거");
+				if(answer.matches(".*데리.*"))			Optioning_menu("데리버거");
+				else if(answer.matches(".*치킨.*"))		Optioning_menu("치킨버거");
+				else if(answer.matches(".*새우.*"))		Optioning_menu("새우버거");
+				else if(answer.matches(".*불고기.*")) 	Optioning_menu("불고기버거");
 			}
 			
 			// 버거 세트를 주문 내역에 추가하는 함수
@@ -149,7 +148,7 @@ public class Order {
 			// 디저트를 주문 내역에 추가하는 함수
 			public static boolean Order_desserts(String answer) {
 				if(answer.matches(".*(포테이토|감자튀김|후렌치|프렌치|후라이|프라이)+.*"))	answer = "포테이토";
-				else if(answer.matches(".*(양념감자)+.*"))						answer = "양념감자";
+				else if(answer.matches(".*(양념감자)+.*"))									answer = "양념감자";
 				
 				for(MenuList.MenuItem item : MenuList.desserts) {
 			        if(answer.equals(item.name)) {

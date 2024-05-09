@@ -1,8 +1,10 @@
+import java.util.Scanner;
+
+public class Payment {
 	// 결제 함수
-	public class PaymentSystem {
-		static Scanner scanner = new Scanner(System.in);
+	static Scanner scanner = new Scanner(System.in);
 		
-		public static void Payment() {
+		public Payment() {
 		    System.out.println("[system] 결제 방법을 선택해주세요.");
 		    System.out.println("1. 현금 결제");
 		    System.out.println("2. 카드 결제");
@@ -14,23 +16,22 @@
 
 			    switch (paymentMethod) {
 			        case 1:
-			            cashPayment();
+			            cashPayment(paymentMethod);
 			            break;
 			        case 2:
-			            cardPayment();
+			            cardPayment(paymentMethod);
 			            break;
 			        case 3:
-			        	couponment();
+			        	couponPayment(paymentMethod);
 			            break;
 			        default:
 			            System.out.println("올바른 결제 방법을 선택해주세요.");
-			            Payment();
 			            break;
 			    }
 			} catch (InputMismatchException e) {
 	            System.out.println("[시스템] 잘못된 입력입니다. 숫자를 입력해주세요.");
 	            scanner.nextLine(); 
-	            handlePayment();
+	            //handlePayment();
 	        }
 	    }
 
@@ -116,7 +117,7 @@
 	                break;
 	            default:
 	                System.out.println("올바른 쿠폰을 선택해주세요.");
-	                couponPayment();
+	                couponPayment(totalAmount);
 	                break;
 	        }
 
@@ -125,8 +126,7 @@
 	        int discountedPrice = totalPrice * (100 - discount) / 100;
 
 	        System.out.println("최종 결제 금액: " + discountedPrice);
-	        
-	        Payment();
+
 	    }
 	    
 	    public static boolean answer() {
@@ -134,5 +134,3 @@
 	    return response.equalsIgnoreCase("y");
 	    }
 	}
-	
-}

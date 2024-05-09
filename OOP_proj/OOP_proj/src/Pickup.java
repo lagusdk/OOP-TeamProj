@@ -1,19 +1,21 @@
 
-// 대기 후 음식 픽업 함수
+public class Pickup {
+		// 대기 후 음식 픽업 함수
+		
 		public static void FoodPickup() {
 			int maxWaitingTime = 0;
 			
-		    for (MenuItem menuItem : hamburgers) {
-		        if menuItem.time > maxWaitingTime) {
-		            maxWaitingTime = menuItem.time;
-		        }
-		    }
-		    for (MenuItem menuItem : desserts) {
+		    for (MenuList.MenuItem menuItem : MenuList.hamburgers) {
 		        if (menuItem.time > maxWaitingTime) {
 		            maxWaitingTime = menuItem.time;
 		        }
 		    }
-		    for (MenuItem menuItem : beverages) {
+		    for (MenuList.MenuItem menuItem : MenuList.desserts) {
+		        if (menuItem.time > maxWaitingTime) {
+		            maxWaitingTime = menuItem.time;
+		        }
+		    }
+		    for (MenuList.MenuItem menuItem : MenuList.beverages) {
 		        if (menuItem.time > maxWaitingTime) {
 		            maxWaitingTime = menuItem.time;
 		        }
@@ -33,3 +35,6 @@
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            
+		}
+}
