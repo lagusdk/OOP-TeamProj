@@ -76,5 +76,7 @@ public class Main {
 		// Todo 주문 내역 출력하기 구현
 		// Todo 결제하기 구현
 		// Todo 대기 후 음식 픽업 구현
+		
+		Pickup.FoodPickup();
 	}
 }

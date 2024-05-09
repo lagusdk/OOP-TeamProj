@@ -64,7 +64,7 @@ public class MenuList {
     	new Dessert("치킨너겟", 2700, 300);
     	new Dessert("화이어윙", 3100, 360);
     	new Dessert("치킨휠레", 3100, 300);
-    	
+
     	new Dessert("소프트콘", 900, 60);
     	new Dessert("토네이도", 2800, 60);
     	
