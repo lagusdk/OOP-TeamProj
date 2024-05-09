@@ -39,67 +39,62 @@ public class Order {
 
 			// 반복 주문을 위한 함수 
 			public static void OrderLoops() {
-				String answer;
-				String buffer;
+				String answer, buffer;
 				boolean loop_or_not = false;
 				
 				do {
-					System.out.println("[키오스크] 메뉴를 선택해주세요.");
+					System.out.println("[키오스크] 메뉴를 한 개 선택해주세요.");
 					System.out.print(">>");
 					buffer = scanner.nextLine();
-					
 					answer = buffer;
-					if(buffer.matches(".*(메뉴|뭐|종류)+.*")) {	// '메뉴' 단어만 포함되면 메뉴를 출력, (참고)정규표현식 사용
+					
+					// 단어 '메뉴'와 매치되는 경우
+					if(buffer.matches(".*(메뉴|뭐|종류)+.*")) {
 						MenuList.printMenu();	// MenuList의 함수 사용, 필요 시 변경
 					}
 					else {
-						if(buffer.matches(".*(데리|(치킨버거)|새우|불고기)+.*")) {
-							while(true) {
-								if(buffer.matches(".*(세트)+.*")) {
-									Order_burger_set(answer);
-									break;
-								}
-								else if(buffer.matches(".*(단품|버거만)+.*")) {
-									Order_burger_single(answer);
-									break;
-								}
-								else {
-									System.out.println("[키오스크] 세트와 단품 중 어느 것을 주문하시겠습니까?");
-									System.out.print(">>");
-									buffer = scanner.nextLine();
-								}
-							}
+						// 음식 이름과 매치되는 경우
+						if(buffer.matches(".*(데리|(치킨버거)|새우|불고기)+.*")) {	// 버거와 매치되는 경우 
+							single_or_set(buffer, answer);
 							loop_or_not = false;
 						}
-						else {
-							if(Order_desserts(answer) || Order_beverages(answer)) {
+						else if(Order_desserts(answer) || Order_beverages(answer)) { // 음료 혹은 디저트와 매치되는 경우
 								loop_or_not = false;
-							}
-							else {
-								System.out.println("[키오스크] 올바른 메뉴를 선택해주세요.");
-								loop_or_not = true;
-							}
+						}
+						else {
+							System.out.println("[키오스크] 올바른 메뉴를 선택해주세요.");	// 매치되지 않는 경우
+							loop_or_not = true;
 						}
 					}
-					
-					
 				} while(loop_or_not);
 			}
 			
+			// 버거 세트와 단품 여부를 결정하는 함수
+			public static void single_or_set(String buffer, String answer) {
+				while(true) {
+					if(buffer.matches(".*(세트)+.*")) {
+						Order_burger_set(answer);
+						break;
+					}
+					else if(buffer.matches(".*(단품|버거만)+.*")) {
+						Order_burger_single(answer);
+						break;
+					}
+					else {
+						System.out.println("[키오스크] 세트와 단품 중 어느 것을 주문하시겠습니까?");
+						System.out.print(">>");
+						buffer = scanner.nextLine();
+					}
+				}
+			}
+			
+			
 			// 버거 단품을 주문 내역에 추가하는 함수
 			public static void Order_burger_single(String answer) {
-				if(answer.matches(".*데리.*")) {
-					Optioning_menu("데리버거");
-				}
-				else if(answer.matches(".*치킨.*")) {
-					Optioning_menu("치킨버거");
-				}
-				else if(answer.matches(".*새우.*")) {
-					Optioning_menu("새우버거");
-				}
-				else if(answer.matches(".*불고기.*")) {
-					Optioning_menu("불고기버거");
-				}
+				if(answer.matches(".*데리.*"))			Optioning_menu("데리버거");
+				else if(answer.matches(".*치킨.*"))		Optioning_menu("치킨버거");
+				else if(answer.matches(".*새우.*"))		Optioning_menu("새우버거");
+				else if(answer.matches(".*불고기.*")) 	Optioning_menu("불고기버거");
 			}
 			
 			// 버거 세트를 주문 내역에 추가하는 함수
@@ -115,16 +110,13 @@ public class Order {
 						Optioning_menu("콜라");
 					}
 				}
-				else {
-					System.out.println("[키오스크] 올바른 메뉴를 선택해주세요.");
-				}
+				else System.out.println("[키오스크] 올바른 메뉴를 선택해주세요.");
 			}
 			
 			// 버거 세트 구성품을 변경하여 주문 내역에 추가하는 함수
 			public static void Order_change_set() {	
 				String answer;
-				boolean buffer_desserts = false;
-				boolean buffer_beverages = false;
+				boolean buffer_desserts = false, buffer_beverages = false;
 				boolean loop_or_not = false;
 				
 				do {		
@@ -132,24 +124,15 @@ public class Order {
 					System.out.print(">>");
 					answer = scanner.nextLine();
 					
-					if(Order_desserts(answer)) {
-						buffer_desserts = Order_desserts(answer);	
-					}
-					else if(Order_beverages(answer)) {
-						buffer_beverages = Order_beverages(answer);	
-					}
+					if(Order_desserts(answer))			buffer_desserts = true;
+					else if(Order_beverages(answer))	buffer_beverages = true;	
 				    
 				    if(buffer_desserts ^ buffer_beverages) {
 				    	System.out.println("[키오스크] 다른 세트 구성품도 변경하시겠습니까?");
 				    	loop_or_not = answer();
-				    	
 				    	if(loop_or_not == false) {
-				    		if(buffer_desserts) {
-				    			Optioning_menu("콜라");
-				    		}
-				    		else if(buffer_beverages) {
-				    			Optioning_menu("포테이토");
-				    		}
+				    		if(buffer_desserts)			Optioning_menu("콜라");
+				    		else if(buffer_beverages)	Optioning_menu("포테이토");
 				    	}
 				    }
 				    else if(buffer_desserts && buffer_beverages){
@@ -164,12 +147,8 @@ public class Order {
 			
 			// 디저트를 주문 내역에 추가하는 함수
 			public static boolean Order_desserts(String answer) {
-				if(answer.matches(".*(포테이토|감자튀김|후렌치|프렌치|후라이|프라이)+.*")) {
-		    		answer = "포테이토";
-		    	}
-				else if(answer.matches(".*(양념감자)+.*")) {
-					answer = "양념감자";
-				}
+				if(answer.matches(".*(포테이토|감자튀김|후렌치|프렌치|후라이|프라이)+.*"))	answer = "포테이토";
+				else if(answer.matches(".*(양념감자)+.*"))									answer = "양념감자";
 				
 				for(MenuList.MenuItem item : MenuList.desserts) {
 			        if(answer.equals(item.name)) {
@@ -261,12 +240,8 @@ public class Order {
 					String answer = scanner.nextLine();
 					System.
 					out.println("");
-					if(answer.matches(".*(예|응|네|그래|오냐|ㅇ|(?i)y|(?i)yes)+.*")) {
-						return true;
-					}
-					else if(answer.matches(".*(아니|별로|그닥|글쎄|ㄴ|(?i)no|(?i)n)+.*")) {
-						return false;
-					}
+					if(answer.matches(".*(예|응|네|그래|오냐|ㅇ|(?i)y|(?i)yes)+.*"))		return true;
+					else if(answer.matches(".*(아니|별로|그닥|글쎄|ㄴ|(?i)no|(?i)n)+.*"))	return false;
 				}
 			}
 		}
