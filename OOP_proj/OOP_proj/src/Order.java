@@ -12,8 +12,6 @@ public class Order {
 	        public int time;	// 대기 시간
 	        public String etc;
 	        public int number;	// 개수
-	        
-	        static int totalAmount = 0;	// 주문 총액
 
 	        public static ArrayList<OrderHistory> orderhistory = new ArrayList<>();
 	        
@@ -27,17 +25,6 @@ public class Order {
 		        
 			    orderhistory.add(this);
 		    }
-		    
-		    // 주문 내역을 출력하는 함수(임시, 두 번씩 출력되는 오류가 있으니 추후 수정 요망)
-		    public static void printOrder() {
-		    	for (OrderHistory item : orderhistory) {
-		    		System.out.println(item.name + "\t(" + item.etc + ")\t" + item.price + "원");
-	                totalAmount += item.price;
-	            }
-		    	
-		    	System.out.println("합계 \t\t\t" + totalAmount + "원");
-		    	System.out.println("");
-	        }
 	    }
 		
 		
@@ -46,7 +33,7 @@ public class Order {
 			// 반복 주문을 위한 함수 
 			public static void OrderLoops() {
 				String answer, buffer;
-				boolean loop_or_not = false;
+				boolean isLoop = false;
 				
 				do {
 					System.out.println("[키오스크] 메뉴를 한 개 선택해주세요.");
@@ -56,21 +43,21 @@ public class Order {
 					
 					// 단어 '메뉴'와 매치되는 경우
 					if(buffer.matches(".*(메뉴|뭐|종류)+.*")) {
-						MenuList.printMenu();	// MenuList의 함수 사용, 필요 시 변경
+						MenuList.printMenu();
 					}
 					// 음식 이름과 매치되는 경우
-					if(buffer.matches(".*(데리|(치킨버거)|새우|불고기)+.*")) {	// 버거와 매치되는 경우 
+					else if(buffer.matches(".*(데리|(치킨버거)|새우|불고기)+.*")) {	// 버거와 매치되는 경우 
 						single_or_set(buffer, answer);
-						loop_or_not = false;
+						isLoop = false;
 					}
 					else if(Order_desserts(answer) || Order_beverages(answer)) { // 음료 혹은 디저트와 매치되는 경우
-						loop_or_not = false;
+						isLoop = false;
 					}
 					else {
 						System.out.println("[키오스크] 올바른 메뉴를 선택해주세요.");	// 매치되지 않는 경우
-						loop_or_not = true;
+						isLoop = true;
 					}
-				} while(loop_or_not);
+				} while(isLoop);
 			}
 			
 			// 버거 세트와 단품 여부를 결정하는 함수
@@ -106,7 +93,7 @@ public class Order {
 				if(answer.matches(".*(데리|(치킨버거)|새우|불고기)+.*")) {
 					Order_burger_single(answer);
 					System.out.println("[키오스크] 세트 구성품(포테이토와 콜라)을 변경하시겠습니까?");
-					if(Main.answer()) {
+					if(Function.answer()) {
 						Order_change_set();
 					}
 					else {
@@ -121,7 +108,7 @@ public class Order {
 			public static void Order_change_set() {	
 				String answer;
 				boolean buffer_desserts = false, buffer_beverages = false;
-				boolean loop_or_not = false;
+				boolean isLoop = false;
 				
 				do {		
 					System.out.println("[키오스크] 변경하실 메뉴를 선택해주세요.");
@@ -133,20 +120,20 @@ public class Order {
 				    
 				    if(buffer_desserts ^ buffer_beverages) {
 				    	System.out.println("[키오스크] 다른 세트 구성품도 변경하시겠습니까?");
-				    	loop_or_not = Main.answer();
-				    	if(loop_or_not == false) {
+				    	isLoop = Function.answer();
+				    	if(isLoop == false) {
 				    		if(buffer_desserts)			Optioning_menu("콜라");
 				    		else if(buffer_beverages)	Optioning_menu("포테이토");
 				    	}
 				    }
 				    else if(buffer_desserts && buffer_beverages){
-				    	loop_or_not = false;
+				    	isLoop = false;
 				    }
 				    else if(!(buffer_desserts || buffer_beverages)){
 				    	System.out.println("[키오스크] 세트 구성품을 다시 선택해주세요!");
-				    	loop_or_not = true;
+				    	isLoop = true;
 				    }
-				} while(loop_or_not);
+				} while(isLoop);
 			}
 			
 			// 디저트를 주문 내역에 추가하는 함수
