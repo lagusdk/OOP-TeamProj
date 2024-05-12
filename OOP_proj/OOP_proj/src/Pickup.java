@@ -28,31 +28,21 @@ public class Pickup {
 	public static void FoodPickup() {
 		int maxWaitingTime = 0;
 		
-	    for (MenuList.MenuItem menuItem : MenuList.hamburgers) {
-	        if (menuItem.time > maxWaitingTime) {
-	            maxWaitingTime = menuItem.time;
+		// 주문한 내역 중 가장 오래걸리는 상품이 전체 대기 시간
+		for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
+			if (item.time > maxWaitingTime) {
+	            maxWaitingTime = item.time;
 	        }
-	    }
-	    for (MenuList.MenuItem menuItem : MenuList.desserts) {
-	        if (menuItem.time > maxWaitingTime) {
-	            maxWaitingTime = menuItem.time;
-	        }
-	    }
-	    for (MenuList.MenuItem menuItem : MenuList.beverages) {
-	        if (menuItem.time > maxWaitingTime) {
-	            maxWaitingTime = menuItem.time;
-	        }
-	    }
-	    
-	    if (maxWaitingTime > 300) {
-	        maxWaitingTime = 300;
-	    }
-        
+        }
+		
+		maxWaitingTime = maxWaitingTime/2;
     
     	System.out.println("[system] 음식을 준비하고 있습니다... (예상 대기 시간 " + maxWaitingTime/60 + "분 " + maxWaitingTime%60 + "초)");
     	
+    	System.out.println(">> 남은 시간");
     	while (maxWaitingTime > 0) {
-            System.out.println(">> 남은 시간 | " + maxWaitingTime/60 + "분 " + maxWaitingTime%60 + "초");
+    		
+            System.out.println(maxWaitingTime/60 + "분 " + maxWaitingTime%60 + "초");
             Function.timer();
             maxWaitingTime = maxWaitingTime - 30;
         }
