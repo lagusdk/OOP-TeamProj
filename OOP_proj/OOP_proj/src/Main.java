@@ -11,13 +11,16 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		
 		while(true) {
+			Order.OrderHistory.orderhistory.clear();
+			Order.OrderHistory.totalAmount = 0;
+			
 			System.out.println("===== 객체지향프로그래밍 팀프로젝트 =====");
 			System.out.println("");
 			
 			System.out.println("[system] 메인 메뉴");
 			System.out.println("[system] 롯데리아에 입장하시겠습니까?");
 			
-			if(Order.OrderMethod.answer()) {
+			if(answer()) {
 				Simulation();
 			}
 			else {
@@ -64,19 +67,23 @@ public class Main {
 			Order.OrderMethod.OrderLoops(); // 메뉴 선택
 			
 			System.out.println("주문을 계속할까?");
-			loop_or_not = Order.OrderMethod.answer();
-			
-			// 임시 주문 내역 확인 코드(메뉴 구성 출력, 은송)
-			System.out.println("===주문 내역==="); 
-			Order.OrderHistory.printOrder();
-			System.out.println("==============="); 
-			
+			loop_or_not = answer();
 		} while(loop_or_not);
 		
-		// Todo 주문 내역 출력하기 구현
-		// Todo 결제하기 구현
-		// Todo 대기 후 음식 픽업 구현
-		
+		Order.OrderHistory.printOrder();
+		Payment.PaymentLoop();
 		Pickup.FoodPickup();
+	}
+	
+	// 예 아니요 형태의 사용자 입력을 boolean 값으로 반환하는 함수
+	public static boolean answer() {	
+		while(true) {
+			System.out.print(">>(y/n)");
+			String answer = scanner.nextLine();
+			System.
+			out.println("");
+			if(answer.matches(".*(예|응|네|그래|오냐|ㅇ|(?i)y|(?i)yes)+.*"))		return true;
+			else if(answer.matches(".*(아니|별로|그닥|글쎄|ㄴ|(?i)no|(?i)n)+.*"))	return false;
+		}
 	}
 }
