@@ -52,11 +52,16 @@ public class Main {
 		
 		// 주문 내역 출력
 		Function.printOrder();
+		System.out.println("");
 		
-		// 결제
-		Payment.PaymentLoop();
-		
-		// 픽업
-		Pickup.FoodPickup();
+		if(Function.calculateTotal() > 0) {
+			// 결제
+			Payment.PaymentLoop();
+			// 픽업
+			Pickup.FoodPickup();
+		}
+		else {
+			System.out.println("[system] 당신은 어떤 음식도 주문하지 않고 뻘쭘하게 매장 밖으로 나왔습니다.");
+		}
 	}
 }

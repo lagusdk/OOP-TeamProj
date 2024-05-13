@@ -34,19 +34,18 @@ public class Pickup {
 	            maxWaitingTime = item.time;
 	        }
         }
-		
-		maxWaitingTime = maxWaitingTime/2;
     
     	System.out.println("[system] 음식을 준비하고 있습니다... (예상 대기 시간 " + maxWaitingTime/60 + "분 " + maxWaitingTime%60 + "초)");
     	
     	System.out.println(">> 남은 시간");
     	while (maxWaitingTime > 0) {
     		
-            System.out.println(maxWaitingTime/60 + "분 " + maxWaitingTime%60 + "초");
-            Function.timer();
+            System.out.print(maxWaitingTime/60 + "분 " + maxWaitingTime%60 + "초… ");
+            Function.timer(0.5);
             maxWaitingTime = maxWaitingTime - 30;
         }
-
+    	
+    	System.out.println("");
         System.out.println("[system] 주문번호 "+Payment.random+"번 손님! 음식이 준비되었습니다.");
         Function.timer(2);
         
