@@ -42,7 +42,6 @@ public class Function {
     	return sum;
     }
 	
-	
 	// 1초씩 딜레이를 주는 함수(다형성)
 	static void timer() {
 		try {

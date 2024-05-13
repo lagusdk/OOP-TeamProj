@@ -2,12 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuList {
-
     // 각 카테고리별 메뉴 항목 리스트를 정적 선언
     public static List<MenuItem> hamburgers = new ArrayList<>();
     public static List<MenuItem> desserts = new ArrayList<>();
     public static List<MenuItem> beverages = new ArrayList<>();
-    
     
     // 메뉴 항목 나타내는 클래스(상속: 모든 메뉴 항목의 기반 클래스 역할)
     public static class MenuItem {
@@ -24,7 +22,7 @@ public class MenuList {
 	    
     }
 
-    // 상속 활용 -> 각 카테고리별 메뉴 항목 추가하기
+    // 상속 활용하여 각 카테고리별 메뉴 항목을 추가
     public static class Hamburger extends MenuItem {
         public Hamburger(String name, int price, int time) {
             super(name, price, time); // 부모 클래스의 생성자 호출
@@ -46,6 +44,7 @@ public class MenuList {
         }
     }
     
+    // 메뉴를 추가하는 생성자를 이용하여 클래스 로딩 과정에서 메뉴 생성
     public MenuList()
     {
     	new Hamburger("데리버거", 3300, 300);
@@ -77,8 +76,7 @@ public class MenuList {
     	new Beverage("오렌지주스", 2500, 25);
     }
   
-    // 메뉴 추가한거 확인용(메뉴 리스트 수정하고 저장 후 실행해서 확인 가능 in Console)
-    // 나중에는 지워도될듯
+    // 메뉴판 출력
     public static void printMenu() {
 		System.out.println("");
     	System.out.println("[ 햄버거 ]");
@@ -87,16 +85,20 @@ public class MenuList {
         }
         
 		System.out.println("");
+		
         System.out.println("[ 디저트 ]");
         for (MenuItem item : desserts) {
         	System.out.println(item.name + "\t |   "+ "W " + item.price + "\t"+ item.time + " sec");
         }
 
-		System.out.println("");
+        System.out.println("");
+		
         System.out.println("[ 음료 ]");
         for (MenuItem item : beverages) {
         	System.out.println(item.name + "\t |   "+ "W " + item.price+ "\t"+ item.time + " sec");
         }
+
+        System.out.println("");
     }
         
         

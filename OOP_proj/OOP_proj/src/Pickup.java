@@ -2,10 +2,11 @@ import java.util.Scanner;
 
 public class Pickup {
 	static Scanner scanner = new Scanner(System.in);
+	
 	static int isPackaging = -1; // 포장 혹은 매장 선택 변수
 	
 	// 포장&매장 선택
-	public static void TakeoutStatus() {
+	public static void checkTakeout() {
 		String answer;
 		while(true) {
 			System.out.println("[키오스크] 포장과 매장 중 이용 방법을 선택해주세요.");
@@ -25,7 +26,7 @@ public class Pickup {
 	}
 	
 	// 대기 후 음식 픽업 함수
-	public static void FoodPickup() {
+	public static void pickupOrder() {
 		int maxWaitingTime = 0;
 		
 		// 주문한 내역 중 가장 오래걸리는 상품이 전체 대기 시간
