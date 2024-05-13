@@ -1,13 +1,13 @@
 import java.util.Scanner;
-
 import java.util.InputMismatchException;
 
 public class Payment {
-	// 결제 함수
 	static Scanner scanner = new Scanner(System.in);
-	static int random = (int) ((Math.random() * (50 - 0)) + 1); // 주문 번호 생성
 	
-	public static void PaymentLoop() {
+	static int random = (int) ((Math.random() * (50 - 0)) + 1); // 난수를 이용한 주문 번호 생성
+
+	// 결제 함수
+	public static void paymentLoop() {
 		boolean isLoop = true;
 		int totalAmount = Function.calculateTotal();
 		int payedAmount = totalAmount;
@@ -84,7 +84,6 @@ public class Payment {
 	    return totalAmount;
 	}
 
-
 	// 카드 결제 함수
 	static int cardPayment(int totalAmount) {
 		System.out.println("[키오스크] 카드 결제를 진행합니다.");		
@@ -114,7 +113,6 @@ public class Payment {
 	            System.out.println("[키오스크] 결제가 취소되었습니다.");
 	        }
 	    }
-        
         return totalAmount;
     }
 
