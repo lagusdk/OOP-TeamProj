@@ -54,7 +54,7 @@ public class MenuList {
     	new Hamburger("핫크리스피버거", 5900, 300);
     	new Hamburger("불고기버거", 4700, 300);
     	new Hamburger("빅불버거", 7100, 300);
-    	new Hamburger("한우불고기", 8400, 360);
+    	new Hamburger("한우불고기버거", 8400, 360);
 
     	new Dessert("포테이토", 1800, 180);
     	new Dessert("양념감자", 2300, 180);

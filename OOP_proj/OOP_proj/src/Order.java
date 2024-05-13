@@ -46,11 +46,14 @@ public class Order {
 						MenuList.printMenu();
 					}
 					// 음식 이름과 매치되는 경우
-					else if(buffer.matches(".*(데리|(치킨버거)|새우|불고기)+.*")) {	// 버거와 매치되는 경우 
+					else if(buffer.matches(".*(데리|(치킨버거)|새우|크리스피|불고기|빅불|한우)+.*")) {	// 버거와 매치되는 경우 
 						single_or_set(buffer, answer);
 						isLoop = false;
 					}
 					else if(Order_desserts(answer) || Order_beverages(answer)) { // 음료 혹은 디저트와 매치되는 경우
+						isLoop = false;
+					}
+					else if(Function.answer(answer) == 0) {
 						isLoop = false;
 					}
 					else {
@@ -85,12 +88,15 @@ public class Order {
 				if(answer.matches(".*데리.*"))			Optioning_menu("데리버거");
 				else if(answer.matches(".*치킨.*"))		Optioning_menu("치킨버거");
 				else if(answer.matches(".*새우.*"))		Optioning_menu("새우버거");
+				else if(answer.matches(".*크리스피.*")) 	Optioning_menu("핫크리스피버거");
 				else if(answer.matches(".*불고기.*")) 	Optioning_menu("불고기버거");
+				else if(answer.matches(".*빅불.*")) 	Optioning_menu("빅불버거");
+				else if(answer.matches(".*한우.*")) 	Optioning_menu("한우불고기버거");
 			}
 			
 			// 버거 세트를 주문 내역에 추가하는 함수
 			public static void Order_burger_set(String answer) {
-				if(answer.matches(".*(데리|(치킨버거)|새우|불고기)+.*")) {
+				if(answer.matches(".*(데리|(치킨버거)|새우|크리스피|불고기|빅불|한우)+.*")) {
 					Order_burger_single(answer);
 					System.out.println("[키오스크] 세트 구성품(포테이토와 콜라)을 변경하시겠습니까?");
 					if(Function.answer()) {
@@ -129,9 +135,17 @@ public class Order {
 				    else if(buffer_desserts && buffer_beverages){
 				    	isLoop = false;
 				    }
-				    else if(!(buffer_desserts || buffer_beverages)){
-				    	System.out.println("[키오스크] 세트 구성품을 다시 선택해주세요!");
-				    	isLoop = true;
+				    else if(!(buffer_desserts || buffer_beverages)) {
+				    	if(answer.matches("(.*라지\\s?세트*.)|(.*라지*.)")) {
+				    		new OrderHistory("포테이토", 1800, 180, "L", 1);
+							new OrderHistory("콜라", 1800, 180, "L", 1);
+							System.out.println("[키오스크] 라지 세트를 선택하셨습니다.");
+							isLoop = false;
+						}
+					    else {
+					    	System.out.println("[키오스크] 세트 구성품을 다시 선택해주세요!");
+					    	isLoop = true;
+				    	}
 				    }
 				} while(isLoop);
 			}

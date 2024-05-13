@@ -9,9 +9,16 @@ public class Function {
 			System.out.print(">>(y/n)");
 			String answer = scanner.nextLine();
 			System.out.println("");
-			if(answer.matches(".*(예|응|네|그래|오냐|ㅇ|(?i)y|(?i)yes)+.*"))		return true;
-			else if(answer.matches(".*(아니|별로|그닥|글쎄|ㄴ|(?i)no|(?i)n)+.*"))	return false;
+			if(answer.matches(".*(예|응|네|그래|오냐|ㅇ|(?i)y|(?i)yes)+.*"))			return true;
+			else if(answer.matches(".*(아니|별로|그닥|글쎄|그만|ㄴ|(?i)no|(?i)n)+.*"))	return false;
 		}
+	}
+	
+	// 예 아니요 형태의 사용자 입력을 boolean 값으로 반환하는 함수
+	public static int answer(String str) {
+		if(str.matches(".*(예|응|네|그래|오냐|ㅇ|웅|(?i)y|(?i)yes)+.*"))		return 1;
+		else if(str.matches(".*(아니|별로|그닥|글쎄|그만|ㄴ|(?i)no|(?i)n)+.*"))	return 0;
+		return -1;
 	}
 	
 	// 주문 내역을 출력하는 함수
@@ -30,13 +37,13 @@ public class Function {
 	static int calculateTotal() {
 		int sum = 0;
     	for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
-    		sum =+ item.price;
+    		sum += item.price;
         }
     	return sum;
     }
 	
 	
-	// 1초씩 딜레이를 주는 함수
+	// 1초씩 딜레이를 주는 함수(다형성)
 	static void timer() {
 		try {
             Thread.sleep(1000); 
@@ -45,10 +52,10 @@ public class Function {
         }
 	}
 	
-	// n초씩 딜레이를 주는 함수
-	static void timer(int n) {
+	// n초씩 딜레이를 주는 함수(다형성)
+	static void timer(double n) {
 		try {
-            Thread.sleep(n*1000); 
+            Thread.sleep((long)(n*1000)); 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
