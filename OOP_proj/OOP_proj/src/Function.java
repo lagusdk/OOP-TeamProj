@@ -27,7 +27,7 @@ public class Function {
 		System.out.println("");
 		System.out.println("=== 주문 내역 ===");
     	for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
-    		System.out.println(item.name + "\t(" + item.etc + ")\t" + item.price + "원");
+    		System.out.println(item.name + "\t(" + item.option + ")\t" + item.price + "원");
         }
     	System.out.println("합계 \t\t\t" + totalAmount + "원");
 	    System.out.println("=================");
@@ -51,7 +51,7 @@ public class Function {
         }
 	}
 	
-	// n초씩 딜레이를 주는 함수(다형성)
+	// 1초씩 딜레이를 주는 함수(다형성)
 	static void timer(double n) {
 		try {
             Thread.sleep((long)(n*1000)); 

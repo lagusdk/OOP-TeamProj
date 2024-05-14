@@ -52,11 +52,12 @@ public class Pickup {
         
         System.out.println("[system] 픽업 완료!");
         Function.timer(2);
-        if(isPackaging == 0) {
+        if(isPackaging == 1) {
         	System.out.println("[system] 음식을 맛있게 먹고 트레이는 제자리에 가져다 놓았다!");
         }
-        else if(isPackaging == 1) {
+        else if(isPackaging == 0) {
         	System.out.println("[system] 포장된 음식을 가져가 맛있게 먹었다!");
+        	
         }
         
         Function.timer();
