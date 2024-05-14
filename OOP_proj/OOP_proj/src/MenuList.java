@@ -9,17 +9,17 @@ public class MenuList {
     
     // 메뉴 항목 나타내는 클래스(상속: 모든 메뉴 항목의 기반 클래스 역할)
     public static class MenuItem {
-    	public String name; // 메뉴 이름
+       public String name; // 메뉴 이름
         public int price; // 가격
         public int time; // 대기 시간
    
-	    // 메뉴 항목을 초기화하는 생성자
-	    public MenuItem(String name, int price, int time) {
-	        this.name = name;
-	    	this.price = price;
-	        this.time = time;
-	    }
-	    
+       // 메뉴 항목을 초기화하는 생성자
+       public MenuItem(String name, int price, int time) {
+           this.name = name;
+          this.price = price;
+           this.time = time;
+       }
+       
     }
 
     // 상속 활용하여 각 카테고리별 메뉴 항목을 추가
@@ -47,55 +47,62 @@ public class MenuList {
     // 메뉴를 추가하는 생성자를 이용하여 클래스 로딩 과정에서 메뉴 생성
     public MenuList()
     {
-    	new Hamburger("데리버거", 3300, 300);
-    	new Hamburger("치킨버거", 4000, 300);
-    	new Hamburger("새우버거", 4700, 240);
-    	new Hamburger("핫크리스피버거", 5900, 300);
-    	new Hamburger("불고기버거", 4700, 300);
-    	new Hamburger("빅불버거", 7100, 300);
-    	new Hamburger("한우불고기버거", 8400, 360);
+       new Hamburger("데리버거", 3300, 300);
+       new Hamburger("치킨버거", 4000, 300);
+       new Hamburger("새우버거", 4700, 240);
+       new Hamburger("티렉스버거", 4700, 390);
+       new Hamburger("핫크리스피버거", 5900, 330);
+       new Hamburger("불고기버거", 4700, 300);
+       new Hamburger("빅불버거", 7100, 300);
+       new Hamburger("한우불고기버거", 8400, 360);
 
-    	new Dessert("포테이토", 1800, 180);
-    	new Dessert("양념감자", 2300, 180);
-    	new Dessert("치즈스틱", 2400, 90);
-    	new Dessert("오징어링", 2600, 140);
-    	
-    	new Dessert("치킨너겟", 2700, 300);
-    	new Dessert("화이어윙", 3100, 360);
-    	new Dessert("치킨휠레", 3100, 300);
+       new Dessert("포테이토(R)", 1800, 180);
+       new Dessert("포테이토(L)", 2200, 180);
+       new Dessert("양념감자", 2300, 180);
+       new Dessert("치즈스틱", 2400, 90);
+       new Dessert("롱치즈스틱", 2000, 90);
+       new Dessert("오징어링", 2600, 140);
+       new Dessert("콘샐러드", 1900, 30);
+       
+       new Dessert("치킨너겟", 2700, 300);
+       new Dessert("화이어윙", 3100, 360);
+       new Dessert("치킨휠레", 3100, 300);
+       new Dessert("치킨1조각", 2800, 600);
 
-    	new Dessert("소프트콘", 900, 60);
-    	new Dessert("토네이도", 2800, 60);
-    	
-    	new Beverage("콜라", 2000, 15);
-    	new Beverage("사이다", 2000, 15);
-    	new Beverage("아이스티", 2300, 25);
-    	new Beverage("레몬에이드", 2500, 25);
-    	new Beverage("아메리카노", 2500, 25);
-    	new Beverage("카페라떼", 3000, 25);
-    	new Beverage("오렌지주스", 2500, 25);
+       new Dessert("소프트콘", 900, 60);
+       new Dessert("토네이도", 2800, 60);
+       
+       new Beverage("콜라(R)", 2000, 15);
+       new Beverage("콜라(L)", 2200, 15);
+       new Beverage("사이다(R)", 2000, 15);
+       new Beverage("사이다(L)", 2200, 15);
+       new Beverage("아이스티", 2300, 25);
+       new Beverage("레몬에이드", 2500, 25);
+       new Beverage("아메리카노", 2500, 25);
+       new Beverage("카페라떼", 3000, 25);
+       new Beverage("오렌지주스", 2500, 15);
     }
   
     // 메뉴판 출력
     public static void printMenu() {
-		System.out.println("");
-    	System.out.println("[ 햄버거 ]");
+      System.out.println("");
+       System.out.println("[ 햄버거 ]");
         for (MenuItem item : hamburgers) {
-        	System.out.println(item.name + "\t |   "+ "W " + item.price + "\t"+ item.time + " sec");
+           System.out.println(item.name + "\t |   "+ "W " + item.price);
         }
         
-		System.out.println("");
-		
+      System.out.println("");
+      
         System.out.println("[ 디저트 ]");
         for (MenuItem item : desserts) {
-        	System.out.println(item.name + "\t |   "+ "W " + item.price + "\t"+ item.time + " sec");
+           System.out.println(item.name + "\t |   "+ "W " + item.price);
         }
 
         System.out.println("");
-		
+      
         System.out.println("[ 음료 ]");
         for (MenuItem item : beverages) {
-        	System.out.println(item.name + "\t |   "+ "W " + item.price+ "\t"+ item.time + " sec");
+           System.out.println(item.name + "\t |   "+ "W " + item.price);
         }
 
         System.out.println("");
