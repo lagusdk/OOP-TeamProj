@@ -13,6 +13,9 @@ public class Order {
         public String option;   // 시즈닝 혹은 맛 저장
 
         public static ArrayList<OrderHistory> orderhistory = new ArrayList<>();
+
+
+
         
        // 메뉴 항목을 초기화하는 생성자
        public OrderHistory(String name, int price, int time, String option) {
@@ -45,7 +48,7 @@ public class Order {
                isLoop = true;
             }
             // 음식 이름과 매치되는 경우
-            else if(buffer.matches(".*(데리|(치킨버거)|새우|(티렉스|(?i)trex)|크리스피|불고기|빅불|한우)+.*")) {   // 버거와 매치되는 경우 
+            else if(buffer.matches(".*(데리|(치킨버거)|새우|치즈|(티렉스|(?i)trex)|크리스피|불고기|빅불|한우|돈까스|라이스)+.*")) {   // 버거와 매치되는 경우 
                checkBurgerSet(buffer, answer);
                isLoop = false;
             }
@@ -86,16 +89,19 @@ public class Order {
          if(answer.matches(".*데리.*"))                  storageMenu("데리버거");
          else if(answer.matches(".*치킨.*"))               storageMenu("치킨버거");
          else if(answer.matches(".*새우.*"))               storageMenu("새우버거");
+         else if(answer.matches(".*치즈.*"))               storageMenu("치즈버거");
          else if(answer.matches(".*(티렉스|(?i)trex).*"))   storageMenu("티렉스버거");
          else if(answer.matches(".*크리스피.*"))          storageMenu("핫크리스피버거");
          else if(answer.matches(".*불고기.*"))             storageMenu("불고기버거");
          else if(answer.matches(".*빅불.*"))             storageMenu("빅불버거");
          else if(answer.matches(".*한우.*"))             storageMenu("한우불고기버거");
+         else if(answer.matches(".*돈까스.*"))               storageMenu("왕돈까스버거");
+         else if(answer.matches(".*라이스.*"))               storageMenu("전주비빔라이스버거");
       }
       
       // 버거 세트를 주문 내역에 추가하는 함수
       public static void orderBurgerSet(String answer) {
-         if(answer.matches(".*(데리|(치킨버거)|새우|티렉스|크리스피|불고기|빅불|한우)+.*")) {
+         if(answer.matches(".*(데리|(치킨버거)|새우|치즈|티렉스|크리스피|불고기|빅불|한우|돈까스|라이스)+.*")) {
             orderBurger(answer);
             System.out.println("[키오스크] 세트 구성품(포테이토와 콜라)을 변경하시겠습니까?");
             if(Function.answer()) {
@@ -153,6 +159,8 @@ public class Order {
       public static boolean orderDesserts(String answer) {
          if(answer.matches(".*(포테이토|감자튀김|감튀|후렌치|프렌치|후라이|프라이)+.*"))   answer = "포테이토(R)";
          else if(answer.matches(".*(양념감자)+.*"))                           answer = "양념감자";
+         else if(answer.matches(".*(토네이도)+.*")) 							answer = "토네이도";
+         else if(answer.matches(".*(선데아이스크림)+.*")) 							answer = "선데아이스크림";
          else if(answer.matches(".*(치킨다리|치킨한조각|치킨1조각)+.*"))            answer = "치킨한조각";
          
          for(MenuList.MenuItem item : MenuList.desserts) {
@@ -163,6 +171,14 @@ public class Order {
                  else if(answer.equals("양념감자")) {
                     optioningSeasoning(answer, item);
                  }
+                    
+                    else if(answer.equals("토네이도")) {
+                        optioningtornado(answer, item);
+                 }
+                    else if(answer.equals("선데아이스크림")) {
+                        optioningicecream(answer, item);
+                 }
+                    
                  else {
                     storageMenu(answer);   
                  }
@@ -270,5 +286,50 @@ public class Order {
              }
          }
       }
+   }
+      
+   // 토네이도를 저장하는 함수
+      public static void optioningtornado(String answer, MenuList.MenuItem item) {
+         while(true) {
+            System.out.println("[키오스크] 토네이도 맛을 선택해주세요. (초코쿠키, 스트로베리, 더블초코 가능)");
+            System.out.print(">>");
+            answer = scanner.nextLine();
+             if(answer.matches(".*(초코쿠키)+.*")) {
+                new OrderHistory(item.name, item.price, item.time, "초코쿠키");
+                break;
+             }
+             else if(answer.matches(".*(스트로베리)+.*")) {
+                new OrderHistory(item.name, item.price, item.time, "스트로베리");
+                break;
+             }
+             else if(answer.matches(".*(더블초코)+.*")) {
+                new OrderHistory(item.name, item.price, item.time, "더블초코");
+                break;
+             }
+         }
+      }
+      
+   // 선데아이스크림 저장하는 함수
+      public static void optioningicecream(String answer, MenuList.MenuItem item) {
+         while(true) {
+            System.out.println("[키오스크] 선데아이스크림 맛을 선택해주세요. (플레인, 스트로베리, 허쉬초코 가능)");
+            System.out.print(">>");
+            answer = scanner.nextLine();
+             if(answer.matches(".*(플레인)+.*")) {
+                new OrderHistory(item.name, item.price, item.time, "플레인");
+                break;
+             }
+             else if(answer.matches(".*(스트로베리)+.*")) {
+                new OrderHistory(item.name, item.price, item.time, "스트로베리");
+                break;
+             }
+             else if(answer.matches(".*(허쉬초코)+.*")) {
+                new OrderHistory(item.name, item.price, item.time, "허쉬초코");
+                break;
+             }
+         }
+      }
+      
+      public static void SetMenu() {
    }
 }
