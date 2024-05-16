@@ -5,7 +5,8 @@ public class Main {
 	
 	static MenuList menulist = new MenuList(); // 생성자 함수를 이용한 메뉴 추가를 위해 클래스 파일 임포트
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
+		
 		// 메인 화면
 		while(true) {
 			// 초기화
