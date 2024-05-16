@@ -2,6 +2,7 @@
 // 주문 내역 저장 함수를 제공하는 클래스
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Order {
 	static Scanner scanner = new Scanner(System.in);
@@ -28,6 +29,7 @@ public class Order {
 
 	// 주문과 관련된 함수를 저장하는 class
 	static public class OrderMethod {
+		static String burgerName = ".*(데리|(치킨버거)|새우|치즈|(티렉스|(?i)trex)|크리스피|불고기|빅불|한우|돈까스|라이스)+.*";
 
 		// 반복 주문을 위한 함수
 		public static void orderLoops() {
@@ -46,10 +48,10 @@ public class Order {
 					isLoop = true;
 				}
 				// 음식 이름과 매치되는 경우
-				else if (buffer.matches(".*(데리|(치킨버거)|새우|치즈|(티렉스|(?i)trex)|크리스피|불고기|빅불|한우|돈까스|라이스)+.*")) { 
-					checkBurgerSet(buffer, answer);	// 버거와 매치되는 경우
+				else if (Pattern.matches(burgerName, buffer)) {
+					OrderBurgers.checkBurgerSet(buffer, answer);
 					isLoop = false;
-				} else if (orderDesserts(answer) || orderBeverages(answer)) {
+				} else if (OrderDesserts.storageMenu(answer) || OrderBeverages.storageMenu(answer)) {
 					isLoop = false;
 				} else if (Function.answer(answer) == 0) {
 					isLoop = false;
@@ -60,6 +62,33 @@ public class Order {
 			} while (isLoop);
 		}
 
+		// 파라미터 name을 MenuList와 대조하여, 해당하는 price와 time을 orderhistory에 저장하는 함수
+		public static boolean storageMenu(String name) {
+			for (MenuList.MenuItem item : MenuList.hamburgers) {
+				if (name.equals(item.name)) {
+					new OrderHistory(item.name, item.price, item.time, null);
+				}
+			}
+			for (MenuList.MenuItem item : MenuList.desserts) {
+				if (name.equals(item.name)) {
+					new OrderHistory(item.name, item.price, item.time, null);
+				}
+			}
+			for (MenuList.MenuItem item : MenuList.beverages) {
+				if (name.equals(item.name)) {
+					new OrderHistory(item.name, item.price, item.time, null);
+				}
+			}
+			return false;
+		}
+
+		// 디저트 혹은 음료의 사이즈를 저장하는 함수
+		public static void optioningSize(MenuList.MenuItem item) {
+		}
+
+	}
+
+	public static class OrderBurgers extends OrderMethod {
 		// 버거 세트와 단품 여부를 결정하는 함수
 		public static void checkBurgerSet(String buffer, String answer) {
 			while (true) {
@@ -79,33 +108,33 @@ public class Order {
 
 		// 버거 단품을 주문 내역에 추가하는 함수
 		public static void orderBurger(String answer) {
-			if (answer.matches(".*데리.*"))
+			if (answer.matches(".*데리+.*"))
 				storageMenu("데리버거");
-			else if (answer.matches(".*치킨.*"))
+			else if (answer.matches(".*치킨+.*"))
 				storageMenu("치킨버거");
-			else if (answer.matches(".*새우.*"))
+			else if (answer.matches(".*새우+.*"))
 				storageMenu("새우버거");
-			else if (answer.matches(".*치즈.*"))
+			else if (answer.matches(".*치즈+.*"))
 				storageMenu("치즈버거");
-			else if (answer.matches(".*(티렉스|(?i)trex).*"))
+			else if (answer.matches(".*(티렉스|(?i)trex)+.*"))
 				storageMenu("티렉스버거");
-			else if (answer.matches(".*크리스피.*"))
+			else if (answer.matches(".*크리스피+.*"))
 				storageMenu("핫크리스피버거");
-			else if (answer.matches(".*불고기.*"))
+			else if (answer.matches(".*불고기+.*"))
 				storageMenu("불고기버거");
-			else if (answer.matches(".*빅불.*"))
+			else if (answer.matches(".*빅불+.*"))
 				storageMenu("빅불버거");
-			else if (answer.matches(".*한우.*"))
+			else if (answer.matches(".*한우+.*"))
 				storageMenu("한우불고기버거");
-			else if (answer.matches(".*돈까스.*"))
+			else if (answer.matches(".*돈까스+.*"))
 				storageMenu("왕돈까스버거");
-			else if (answer.matches(".*라이스.*"))
+			else if (answer.matches(".*라이스+.*"))
 				storageMenu("전주비빔라이스버거");
 		}
 
 		// 버거 세트를 주문 내역에 추가하는 함수
 		public static void orderBurgerSet(String answer) {
-			if (answer.matches(".*(데리|(치킨버거)|새우|치즈|티렉스|크리스피|불고기|빅불|한우|돈까스|라이스)+.*")) {
+			if (Pattern.matches(burgerName, answer)) {
 				orderBurger(answer);
 				System.out.println("[키오스크] 세트 구성품(포테이토와 콜라)을 변경하시겠습니까?");
 				if (Function.answer()) {
@@ -136,9 +165,9 @@ public class Order {
 					break;
 				}
 
-				if (orderDesserts(answer))
+				if (OrderDesserts.storageMenu(answer))
 					buffer_desserts = true;
-				else if (orderBeverages(answer))
+				else if (OrderBeverages.storageMenu(answer))
 					buffer_beverages = true;
 
 				if (buffer_desserts && buffer_beverages) {
@@ -165,13 +194,15 @@ public class Order {
 				}
 			} while (isLoop);
 		}
+	}
 
+	public static class OrderDesserts extends OrderMethod {
 		// 디저트를 주문 내역에 추가하는 함수
-		public static boolean orderDesserts(String answer) {
+		public static boolean storageMenu(String answer) {
 			if (answer.matches(".*(포테이토|감자튀김|감튀|후렌치|프렌치|후라이|프라이)+.*"))
 				answer = "포테이토(R)";
-			else if (answer.matches(".*(아이스크림|소프트콘)+.*"))
-				answer = "소프트콘";
+			else if (answer.matches(".*(웨지)+.*"))
+				answer = "웨지포테이토";
 			else if (answer.matches(".*(선데)+.*"))
 				answer = "선데아이스크림";
 			else if (answer.matches(".*(치킨다리|치킨한조각|치킨1조각)+.*"))
@@ -188,66 +219,16 @@ public class Order {
 					else if (answer.equals("선데아이스크림"))
 						optioningIcecream(item);
 					else
-						storageMenu(answer);
+						new OrderHistory(item.name, item.price, item.time, null);
 					return true;
 				}
 			}
 			return false;
 		}
 
-		// 음료를 주문 내역에 추가하는 함수
-		public static boolean orderBeverages(String answer) {
-			boolean tansan = false; // 콜라 혹은 사이다 여부를 저장하는 불린 변수
-			if (answer.matches(".*콜라+.*")) {
-				answer = "콜라(R)";
-				tansan = true;
-			}
-			if (answer.matches(".*사이다+.*")) {
-				answer = "사이다(R)";
-				tansan = true;
-			}
-
-			if (tansan) {
-				for (MenuList.MenuItem item : MenuList.beverages) {
-					if (answer.equals(item.name)) {
-						optioningSize(item);
-						return true;
-					}
-				}
-			} else {
-				for (MenuList.MenuItem item : MenuList.beverages) {
-					if (answer.equals(item.name)) {
-						storageMenu(answer);
-						return true;
-					}
-				}
-			}
-			return false;
-		}
-
-		// 파라미터 name을 MenuList와 대조하여, 해당하는 price와 time을 orderhistory에 저장하는 함수
-		public static void storageMenu(String name) {
-			for (MenuList.MenuItem item : MenuList.hamburgers) {
-				if (name.equals(item.name)) {
-					new OrderHistory(item.name, item.price, item.time, null);
-				}
-			}
-			for (MenuList.MenuItem item : MenuList.desserts) {
-				if (name.equals(item.name)) {
-					new OrderHistory(item.name, item.price, item.time, null);
-				}
-			}
-			for (MenuList.MenuItem item : MenuList.beverages) {
-				if (name.equals(item.name)) {
-					new OrderHistory(item.name, item.price, item.time, null);
-				}
-			}
-		}
-
-		// 디저트 혹은 음료의 사이즈를 저장하는 함수
 		public static void optioningSize(MenuList.MenuItem item) {
 			while (true) {
-				System.out.println("[키오스크] 사이즈를 선택해주세요.(R/L)");
+				System.out.println("[키오스크] 포테이토의 사이즈를 선택해주세요.(R/L)");
 				System.out.print(">>");
 				String buffer = scanner.nextLine();
 
@@ -318,6 +299,55 @@ public class Order {
 				}
 			}
 		}
-
 	}
+
+	public static class OrderBeverages extends OrderMethod {
+		// 음료를 주문 내역에 추가하는 함수
+		public static boolean storageMenu(String answer) {
+			boolean tansan = false; // 콜라 혹은 사이다 여부를 저장하는 불린 변수
+			if (answer.matches(".*콜라+.*")) {
+				answer = "콜라(R)";
+				tansan = true;
+			}
+			if (answer.matches(".*사이다+.*")) {
+				answer = "사이다(R)";
+				tansan = true;
+			}
+
+			if (tansan) {
+				for (MenuList.MenuItem item : MenuList.beverages) {
+					if (answer.equals(item.name)) {
+						optioningSize(item);
+						return true;
+					}
+				}
+			} else {
+				for (MenuList.MenuItem item : MenuList.beverages) {
+					if (answer.equals(item.name)) {
+						new OrderHistory(item.name, item.price, item.time, null);
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		public static void optioningSize(MenuList.MenuItem item) {
+			while (true) {
+				System.out.println("[키오스크] 음료의 사이즈를 선택해주세요.(R/L)");
+				System.out.print(">>");
+				String buffer = scanner.nextLine();
+
+				if (buffer.matches(".*(레귤러|기본|보통|R|r)+.*")) {
+					new OrderHistory(item.name, item.price, item.time, null);
+					break;
+				} else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
+					String nameLarge = (item.name).substring(0, (item.name).length() - 3) + "(L)";
+					storageMenu(nameLarge);
+					break;
+				}
+			}
+		}
+	}
+
 }

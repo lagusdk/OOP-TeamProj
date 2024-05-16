@@ -47,25 +47,15 @@ public class MenuList {
 	// 메뉴를 추가하는 생성자를 이용하여 클래스 로딩 과정에서 메뉴 생성
 	public MenuList() {
 		new Hamburger("데리버거", 3300, 300);
-		new Hamburger("더블데리버거", 4500, 300);
 		new Hamburger("치킨버거", 4000, 300);
-		new Hamburger("더블치킨버거", 5500, 300);
 		new Hamburger("새우버거", 4700, 240);
-		new Hamburger("사각새우더블버거", 5700, 300);
-		new Hamburger("새우베이컨버거", 5800, 360);
 		new Hamburger("치즈버거", 5200, 240);
-		new Hamburger("더치즈버거", 6900, 300);
-		new Hamburger("모짜렐라인더버거", 7400, 360);
-		new Hamburger("불고기버거", 4700, 300);
-		new Hamburger("불고기베이컨버거", 5800, 360);
+		new Hamburger("티렉스버거", 4700, 390);
 		new Hamburger("빅불버거", 7100, 360);
+		new Hamburger("불고기버거", 4700, 300);
 		new Hamburger("한우불고기버거", 8400, 360);
-		new Hamburger("더블한우불고기버거", 12400, 360);
-		new Hamburger("리아미라클버거", 5200, 300);
-		new Hamburger("더블리아미라클버거", 6700, 300);
 		new Hamburger("핫크리스피버거", 5900, 300);
 		new Hamburger("왕돈까스버거", 7500, 360);
-		new Hamburger("매운왕돈까스버거", 7500, 360);
 		new Hamburger("전주비빔라이스버거", 6900, 360);
 
 		new Dessert("포테이토(R)", 1800, 180);
@@ -94,7 +84,6 @@ public class MenuList {
 		new Beverage("레몬에이드", 2500, 25);
 		new Beverage("아메리카노", 2500, 25);
 		new Beverage("카페라떼", 3000, 25);
-		new Beverage("아이스카페라떼", 3000, 25);
 		new Beverage("오렌지주스", 2500, 15);
 		new Beverage("우유", 1500, 5);
 		new Beverage("핫초코", 2500, 25);

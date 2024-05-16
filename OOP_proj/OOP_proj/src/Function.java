@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Function {
 	static Scanner scanner = new Scanner(System.in);
@@ -26,12 +27,15 @@ public class Function {
 	}
 
 	// 주문 내역을 출력하는 함수
-	public static void printOrder() {
+	public static void printOrder() {	
 		int totalAmount = calculateTotal();
 		System.out.println("");
 		System.out.println("=== 주문 내역 ===");
 		for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
-			System.out.println(item.name + "\t(" + item.option + ")\t" + item.price + "원");
+			if (null == (item.option))
+				System.out.println(item.name + "\t\t\t" + item.price + "원");
+			else
+				System.out.println(item.name + " (" + item.option + ")\t\t" + item.price + "원");
 		}
 		System.out.println("합계 \t\t\t" + totalAmount + "원");
 		System.out.println("=================");
