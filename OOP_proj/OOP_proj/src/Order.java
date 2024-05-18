@@ -29,7 +29,7 @@ public class Order {
 
 	// 주문과 관련된 함수를 저장하는 class
 	static public class OrderMethod {
-		static String burgerName = ".*(데리|(치킨버거)|새우|치즈|(티렉스|(?i)trex)|크리스피|불고기|빅불|한우|돈까스|라이스)+.*";
+		static String burgerName = ".*(데리|(치킨버거)|새우|(티렉스|(?i)trex)|크리스피|불고기|빅불|한우|돈까스|라이스)+.*";
 
 		// 반복 주문을 위한 함수
 		public static void orderLoops() {
@@ -81,6 +81,18 @@ public class Order {
 			}
 			return false;
 		}
+		
+		public static boolean storageMenu(String name, boolean set) {
+			for (MenuList.MenuItem item : MenuList.hamburgers) {
+		        if (item instanceof MenuList.Hamburger) {
+		        	MenuList.Hamburger hamburger = (MenuList.Hamburger) item;
+		            if (name.equals(hamburger.name) && set == hamburger.set) {
+		                new OrderHistory(hamburger.name, hamburger.price, hamburger.time, null);
+		            }
+		        }
+		    }
+		    return false;
+		}
 
 		// 디저트 혹은 음료의 사이즈를 저장하는 함수
 		public static void optioningSize(MenuList.MenuItem item) {
@@ -96,7 +108,7 @@ public class Order {
 					orderBurgerSet(answer);
 					break;
 				} else if (buffer.matches(".*(단품|버거만)+.*")) {
-					orderBurger(answer);
+					orderBurger(answer, false);
 					break;
 				} else {
 					System.out.println("[키오스크] 세트와 단품 중 어느 것을 주문하시겠습니까?");
@@ -107,35 +119,33 @@ public class Order {
 		}
 
 		// 버거 단품을 주문 내역에 추가하는 함수
-		public static void orderBurger(String answer) {
+		public static void orderBurger(String answer, boolean set) {
 			if (answer.matches(".*데리+.*"))
-				storageMenu("데리버거");
+				storageMenu("데리버거", set);
 			else if (answer.matches(".*치킨+.*"))
-				storageMenu("치킨버거");
+				storageMenu("치킨버거", set);
 			else if (answer.matches(".*새우+.*"))
-				storageMenu("새우버거");
-			else if (answer.matches(".*치즈+.*"))
-				storageMenu("치즈버거");
+				storageMenu("새우버거", set);
 			else if (answer.matches(".*(티렉스|(?i)trex)+.*"))
-				storageMenu("티렉스버거");
+				storageMenu("티렉스버거", set);
 			else if (answer.matches(".*크리스피+.*"))
-				storageMenu("핫크리스피버거");
+				storageMenu("핫크리스피버거", set);
 			else if (answer.matches(".*불고기+.*"))
-				storageMenu("불고기버거");
+				storageMenu("불고기버거", set);
 			else if (answer.matches(".*빅불+.*"))
-				storageMenu("빅불버거");
+				storageMenu("빅불버거", set);
 			else if (answer.matches(".*한우+.*"))
-				storageMenu("한우불고기버거");
+				storageMenu("한우불고기버거", set);
 			else if (answer.matches(".*돈까스+.*"))
-				storageMenu("왕돈까스버거");
+				storageMenu("왕돈까스버거", set);
 			else if (answer.matches(".*라이스+.*"))
-				storageMenu("전주비빔라이스버거");
+				storageMenu("전주비빔라이스버거", set);
 		}
 
 		// 버거 세트를 주문 내역에 추가하는 함수
 		public static void orderBurgerSet(String answer) {
 			if (Pattern.matches(burgerName, answer)) {
-				orderBurger(answer);
+				orderBurger(answer, true);
 				System.out.println("[키오스크] 세트 구성품(포테이토와 콜라)을 변경하시겠습니까?");
 				if (Function.answer()) {
 					changeBurgerSet();
@@ -186,6 +196,7 @@ public class Order {
 						System.out.println("[키오스크] 라지 세트를 선택하셨습니다.");
 						storageMenu("포테이토(L)");
 						storageMenu("콜라(L)");
+						Function.largeSet++;
 						isLoop = false;
 					} else {
 						System.out.println("[키오스크] 세트 구성품을 다시 선택해주세요!");

@@ -24,8 +24,10 @@ public class MenuList {
 
 	// 상속 활용하여 각 카테고리별 메뉴 항목을 추가
 	public static class Hamburger extends MenuItem {
-		public Hamburger(String name, int price, int time) {
+		public boolean set; // 세트
+		public Hamburger(String name, int price, int time, boolean set) {
 			super(name, price, time); // 부모 클래스의 생성자 호출
+			this.set = set;
 			hamburgers.add(this); // 생성 시 자동으로 리스트에 추가
 		}
 	}
@@ -46,17 +48,27 @@ public class MenuList {
 
 	// 메뉴를 추가하는 생성자를 이용하여 클래스 로딩 과정에서 메뉴 생성
 	public MenuList() {
-		new Hamburger("데리버거", 3300, 300);
-		new Hamburger("치킨버거", 4000, 300);
-		new Hamburger("새우버거", 4700, 240);
-		new Hamburger("치즈버거", 5200, 240);
-		new Hamburger("티렉스버거", 4700, 390);
-		new Hamburger("빅불버거", 7100, 360);
-		new Hamburger("불고기버거", 4700, 300);
-		new Hamburger("한우불고기버거", 8400, 360);
-		new Hamburger("핫크리스피버거", 5900, 300);
-		new Hamburger("왕돈까스버거", 7500, 360);
-		new Hamburger("전주비빔라이스버거", 6900, 360);
+		new Hamburger("데리버거", 3300, 300, false);
+		new Hamburger("치킨버거", 4000, 300, false);
+		new Hamburger("새우버거", 4700, 240, false);
+		new Hamburger("티렉스버거", 4700, 390, false);
+		new Hamburger("빅불버거", 7100, 360, false);
+		new Hamburger("불고기버거", 4700, 300, false);
+		new Hamburger("한우불고기버거", 8400, 360, false);
+		new Hamburger("핫크리스피버거", 5900, 300, false);
+		new Hamburger("왕돈까스버거", 7500, 360, false);
+		new Hamburger("전주비빔라이스버거", 6900, 360, false);
+
+		new Hamburger("데리버거", 5600, 300, true);
+		new Hamburger("치킨버거", 6300, 300, true);
+		new Hamburger("새우버거", 6900, 240, true);
+		new Hamburger("티렉스버거", 6900, 390, true);
+		new Hamburger("빅불버거", 9000, 360, true);
+		new Hamburger("불고기버거", 6900, 300, true);
+		new Hamburger("한우불고기버거", 10200, 360, true);
+		new Hamburger("핫크리스피버거", 7100, 300, true);
+		new Hamburger("왕돈까스버거", 9400, 360, true);
+		new Hamburger("전주비빔라이스버거", 8800, 360, true);
 
 		new Dessert("포테이토(R)", 1800, 180);
 		new Dessert("포테이토(L)", 2200, 180);
