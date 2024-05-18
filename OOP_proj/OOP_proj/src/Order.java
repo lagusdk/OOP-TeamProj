@@ -34,9 +34,8 @@ public class Order {
 		// 반복 주문을 위한 함수
 		public static void orderLoops() {
 			String answer, buffer;
-			boolean isLoop = false;
 
-			do {
+			while (true) {
 				System.out.println(Function.Color.txtKiosk("메뉴를 한 개 선택해주세요.(메뉴판 요청 시 메뉴 출력)"));
 				System.out.print(">>");
 				buffer = scanner.nextLine();
@@ -45,21 +44,21 @@ public class Order {
 				// 음식 이름과 매치되는 경우
 				if (Pattern.matches(burgerName, buffer)) {
 					OrderBurgers.checkBurgerSet(buffer, answer);
-					isLoop = false;
+					break;
 				} else if (OrderDesserts.storageMenu(answer) || OrderBeverages.storageMenu(answer)) {
-					isLoop = false;
+					break;
 				} else if (Function.answer(answer) == 0) {
-					isLoop = false;
+					break;
 				}
 				// 단어 '메뉴'와 매치되는 경우
 				else if (buffer.matches(".*(메뉴|뭐|종류)+.*")) {
 					MenuList.printMenu();
-					isLoop = true;
+					continue;
 				} else {
 					System.out.println(Function.Color.txtKiosk("올바른 메뉴를 선택해주세요."));
-					isLoop = true;
+					continue;
 				}
-			} while (isLoop);
+			}
 		}
 
 		// 메뉴를 배열에 저장하는 함수
@@ -82,7 +81,6 @@ public class Order {
 		// 디저트 혹은 음료의 사이즈를 저장하는 함수
 		public static void optioningSize(MenuList.MenuItem item) {
 		}
-
 	}
 
 	public static class OrderBurgers extends OrderMethod {
@@ -158,9 +156,8 @@ public class Order {
 		public static void changeBurgerSet() {
 			String answer;
 			boolean buffer_desserts = false, buffer_beverages = false;
-			boolean isLoop = false;
 
-			do {
+			while (true) {
 				System.out.println(Function.Color.txtKiosk("구성품을 어떤 메뉴로 변경할까요?"));
 				System.out.print(">>");
 				answer = scanner.nextLine();
@@ -168,8 +165,7 @@ public class Order {
 				if (Function.answer(answer) == 0) {
 					System.out.println(Function.Color.txtKiosk("구성품 변경을 취소할까요?"));
 					if (Function.answer())
-						isLoop = false;
-					break;
+						break;
 				}
 
 				if (OrderDesserts.storageMenu(answer))
@@ -178,28 +174,27 @@ public class Order {
 					buffer_beverages = true;
 
 				if (buffer_desserts && buffer_beverages) {
-					isLoop = false;
+					break;
 				} else if (buffer_desserts ^ buffer_beverages) {
 					System.out.println(Function.Color.txtKiosk("다른 세트 구성품도 변경하시겠습니까?"));
-					isLoop = Function.answer();
-					if (isLoop == false) {
+					if (Function.answer() == false) {
 						if (buffer_desserts)
 							storageMenu("콜라(R)");
 						else if (buffer_beverages)
 							storageMenu("포테이토(R)");
+						break;
 					}
 				} else if (!(buffer_desserts || buffer_beverages)) {
 					if (answer.matches("(.*라지\\s?세트*.)|(.*라지*.)")) {
 						System.out.println(Function.Color.txtKiosk("라지 세트를 선택하셨습니다."));
 						storageMenu("포테이토(L)");
 						storageMenu("콜라(L)");
-						isLoop = false;
-					} else {
+						break;
+					} else
 						System.out.println(Function.Color.txtKiosk("세트 구성품을 다시 선택해주세요!"));
-						isLoop = true;
-					}
+
 				}
-			} while (isLoop);
+			}
 		}
 	}
 
@@ -242,9 +237,13 @@ public class Order {
 				if (buffer.matches(".*(레귤러|기본|보통|R|r)+.*")) {
 					new OrderHistory(item.name, item.price, item.time, null);
 					break;
-				} else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
+				} 
+				else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
 					String nameLarge = (item.name).substring(0, (item.name).length() - 3) + "(L)";
-					storageMenu(nameLarge);
+					for (MenuList.MenuItem menu : MenuList.desserts) {
+						if (nameLarge.equals(menu.name))
+							new OrderHistory(menu.name, menu.price, menu.time, null);
+					}
 					break;
 				}
 			}
@@ -350,7 +349,10 @@ public class Order {
 					break;
 				} else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
 					String nameLarge = (item.name).substring(0, (item.name).length() - 3) + "(L)";
-					storageMenu(nameLarge);
+					for (MenuList.MenuItem menu : MenuList.beverages) {
+						if (nameLarge.equals(menu.name))
+							new OrderHistory(menu.name, menu.price, menu.time, null);
+					}
 					break;
 				}
 			}
