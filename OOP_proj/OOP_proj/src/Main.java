@@ -56,8 +56,7 @@ public class Main {
 		if(Function.calculateTotal() > 0) {
 			Payment.paymentLoop();	// 결제
 			Pickup.pickupOrder();	// 픽업
-		}
-		else {
+		} else {
 			System.out.println("[system] 당신은 어떤 음식도 주문하지 않고 뻘쭘하게 매장 밖으로 나왔습니다.");
 		}
 	}
