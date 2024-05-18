@@ -13,17 +13,17 @@ public class Main {
 			Order.OrderHistory.orderhistory.clear();
 			
 			// 메인 메뉴
-			System.out.println("\n===== 객체지향프로그래밍 팀프로젝트 =====\n");
-			System.out.println("[system] 메인 메뉴");
+			System.out.println(Function.Color.ANSI_txtSystem+"\n===== 객체지향프로그래밍 팀프로젝트 =====\n" + Function.Color.ANSI_RESET);
+			System.out.println(Function.Color.txtSystem("메인 메뉴"));
 			Function.timer();
-			System.out.println("[system] 롯데리아에 입장하시겠습니까?");
+			System.out.println(Function.Color.txtSystem("롯데리아에 입장하시겠습니까?"));
 			
 			if(Function.answer()) {
 				Simulation();	// 시뮬레이션 진행
 			}
 			else {
-				System.out.println("[system] 시뮬레이션 종료");
-				System.out.println("=========================================");
+				System.out.println(Function.Color.txtSystem("시뮬레이션 종료"));
+				System.out.println(Function.Color.ANSI_txtSystem+"=========================================" + Function.Color.ANSI_RESET);
 				break;
 			}
 			Function.timer(3);
@@ -34,9 +34,9 @@ public class Main {
 
 	// 메인 시뮬레이션 함수
 	public static void Simulation() {
-		System.out.println("[system] 롯데리아 입장");
+		System.out.println(Function.Color.txtSystem("롯데리아 입장"));
 		Function.timer();
-		System.out.println("[system] 키오스크를 통해 주문합니다.");
+		System.out.println(Function.Color.txtSystem("키오스크를 통해 주문합니다."));
 		Function.timer();
 		
 		// 포장 혹은 매장 선택
@@ -46,7 +46,7 @@ public class Main {
 		boolean isLoop = false;
 		do {
 			Order.OrderMethod.orderLoops(); // 메뉴 선택
-			System.out.println("[system] 주문을 계속할까요?");
+			System.out.println(Function.Color.txtSystem("주문을 계속할까요?"));
 			isLoop = Function.answer();
 		} while(isLoop);
 		
@@ -57,7 +57,7 @@ public class Main {
 			Payment.paymentLoop();	// 결제
 			Pickup.pickupOrder();	// 픽업
 		} else {
-			System.out.println("[system] 당신은 어떤 음식도 주문하지 않고 뻘쭘하게 매장 밖으로 나왔습니다.");
+			System.out.println(Function.Color.txtSystem("당신은 어떤 음식도 주문하지 않고 뻘쭘하게 매장 밖으로 나왔습니다."));
 		}
 	}
 }
