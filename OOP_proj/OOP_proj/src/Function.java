@@ -46,10 +46,8 @@ public class Function {
 		    System.out.printf("합계\t\t\t%d원\n", total);
 		    System.out.println("**세트 가격이 자동으로 적용됩니다.");
 		    System.out.println("==================================");
+		}
 		
-		
-		
-	}
 
 	// 가격 총합을 계산하는 함수
 	static int calculateTotal() {

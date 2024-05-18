@@ -359,7 +359,7 @@ public class Order {
 		            int additionalPrice = 200; // Large 사이즈 추가 비용
 		            int newPrice = item.price + additionalPrice;
 
-		            new Order.OrderHistory(nameLarge, newPrice, item.time, "Large size + " + additionalPrice + "원 추가");
+		            new Order.OrderHistory(nameLarge, newPrice, item.time, + additionalPrice + "원 추가");
 		            break;
 		        } else {
 		            System.out.println("[키오스크] 잘못된 입력입니다. R 또는 L을 입력해주세요.");
