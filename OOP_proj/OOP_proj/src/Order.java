@@ -344,21 +344,27 @@ public class Order {
 		}
 
 		public static void optioningSize(MenuList.MenuItem item) {
-			while (true) {
-				System.out.println("[키오스크] 음료의 사이즈를 선택해주세요.(R/L)");
-				System.out.print(">>");
-				String buffer = scanner.nextLine();
+		    while (true) {
+		        System.out.println("[키오스크] 음료의 사이즈를 선택해주세요.(R/L)");
+		        System.out.print(">>");
+		        String buffer = scanner.nextLine();
 
-				if (buffer.matches(".*(레귤러|기본|보통|R|r)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, null);
-					break;
-				} else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
-					String nameLarge = (item.name).substring(0, (item.name).length() - 3) + "(L)";
-					storageMenu(nameLarge);
-					break;
-				}
-			}
+		        if (buffer.matches(".*(레귤러|기본|보통|R|r)+.*")) {
+		            // Regular size 선택
+		            new Order.OrderHistory(item.name + "(R)", item.price, item.time, null);
+		            break;
+		        } else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
+		            // Large size 선택 - 이름을 변경하고 추가 비용을 계산
+		            String nameLarge = item.name + "(L)";
+		            int additionalPrice = 200; // Large 사이즈 추가 비용
+		            int newPrice = item.price + additionalPrice;
+
+		            new Order.OrderHistory(nameLarge, newPrice, item.time, + additionalPrice + "원 추가");
+		            break;
+		        } else {
+		            System.out.println("[키오스크] 잘못된 입력입니다. R 또는 L을 입력해주세요.");
+		        }
+		    }
 		}
 	}
-
 }

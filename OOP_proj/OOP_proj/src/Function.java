@@ -28,26 +28,26 @@ public class Function {
 	}
 
 	// 주문 내역을 출력하는 함수
-	public static void printOrder() {
-		int totalAmount = calculateTotal();
-		System.out.println("");
-		System.out.println("============ 주문 내역 ===========");
-		for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
-			if (null == (item.option)) {
-				System.out.printf("%-20s%5d원%n", item.name, item.price);
-			}
-			else {
-				System.out.printf("%-10s(%-10s)%5d원%n", item.name, item.option,item.price);
-			}
+		public static void printOrder() {
+		    System.out.println("============ 주문 내역 ===========");
+		    int total = 0;
+		    for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
+		        // 음료 사이즈 옵션을 확인하고 중복되지 않도록 이름을 처리
+		        String itemName = item.name;
+		        if (item.name.contains("(R)(L)")) {
+		            itemName = item.name.replace("(R)(L)", "(L)");
+		        }
+
+		        String options = item.option != null ? " (" + item.option + ")" : "";
+		        System.out.printf("%s %s %d원\n", itemName, options, item.price);
+		        total += item.price;
+		    }
+		    System.out.println("—————————————————");
+		    System.out.printf("합계\t\t\t%d원\n", total);
+		    System.out.println("**세트 가격이 자동으로 적용됩니다.");
+		    System.out.println("==================================");
 		}
-		System.out.println("----------------------------------");
-		System.out.println("합계 \t\t\t" + totalAmount + "원");
-		System.out.println("**세트 가격이 자동으로 적용됩니다.");
-		System.out.println("==================================");
 		
-		
-		
-	}
 
 	// 가격 총합을 계산하는 함수
 	static int calculateTotal() {
