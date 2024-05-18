@@ -8,12 +8,13 @@ public abstract class Payment {
 
 	// 결제 함수
 	public static void paymentLoop() {
-		boolean isLoop = true;
 		int totalAmount = Function.calculateTotal();
 		int payedAmount = totalAmount;
-
 		int paymentMethod = 0;
-		while (isLoop) {
+
+		boolean paymentCompleted = false;
+		while (!paymentCompleted) {
+			System.out.println(Function.Color.txtKiosk("결제 금액\t\t\t" + totalAmount + "원"));
 			System.out.println(Function.Color.txtKiosk("결제 방법을 선택해주세요. (숫자 입력)"));
 			System.out.println("1. 현금 결제\t2. 카드 결제\t3. 쿠폰 사용");
 			System.out.print(">>");
@@ -22,18 +23,17 @@ public abstract class Payment {
 				switch (paymentMethod) {
 				case 1:
 					cash.payment(totalAmount);
-					isLoop = false;
+					paymentCompleted = true;
 					break;
 				case 2:
 					card.payment(totalAmount);
-					isLoop = false;
+					paymentCompleted = true;
 					break;
 				case 3:
-					payedAmount = coupon.payment(totalAmount);
-					totalAmount = payedAmount;
+					totalAmount = coupon.payment(totalAmount);
 					System.out.println(Function.Color.txtKiosk("쿠폰이 적용되었습니다! 남은 금액을 결제해주세요."));
 					Function.timer();
-					break;
+					continue;
 				default:
 					System.out.println(Function.Color.txtKiosk("1부터 3까지의 수를 입력해주세요."));
 					break;
@@ -45,19 +45,17 @@ public abstract class Payment {
 		}
 
 		Function.printOrder();
-		System.out.println("지불 금액\t: " + payedAmount + "원");
-
-		System.out.println("주문번호\t: " + random);
+		System.out.println("지불 금액\t\t\t\t" + payedAmount + "원");
+		System.out.println("주문번호\t\t\t\t" + random);
 		System.out.println("========================================");
 	}
 
-	public abstract int payment(int totalAmount);
+	public abstract int payment(int totalAmount); // 추상 메소드
 
 	public class cash {
 		// 현금 결제 함수
 		static int payment(int totalAmount) {
 			System.out.println(Function.Color.txtKiosk("현금 결제를 진행합니다."));
-
 			int cash;
 			while (true) {
 				try {
@@ -115,6 +113,7 @@ public abstract class Payment {
 					break;
 				} else {
 					System.out.println(Function.Color.txtKiosk("결제가 취소되었습니다."));
+					break;
 				}
 			}
 			return totalAmount;
@@ -125,17 +124,12 @@ public abstract class Payment {
 	public class coupon {
 		// 쿠폰 결제 함수
 		static int payment(int totalAmount) {
-			boolean isLoop = true;
-
 			System.out.println(Function.Color.txtKiosk("쿠폰 사용을 진행합니다."));
-			Function.printOrder();
-			System.out.println("합계:\t" + totalAmount + "원");
-			System.out.println("=================");
 
 			int couponChoice;
 			int discount = 0;
 
-			while (isLoop) {
+			while (true) {
 				try {
 					System.out.println(Function.Color.txtKiosk("보유하고 있는 쿠폰을 선택해주세요."));
 					System.out.println("1. 10% 할인 쿠폰\t2. 20% 할인 쿠폰\t3. 30% 할인 쿠폰");
@@ -145,23 +139,22 @@ public abstract class Payment {
 					switch (couponChoice) {
 					case 1:
 						discount = 10;
-						isLoop = false;
 						break;
 					case 2:
 						discount = 20;
-						isLoop = false;
 						break;
 					case 3:
 						discount = 30;
-						isLoop = false;
 						break;
 					default:
 						System.out.println(Function.Color.txtKiosk("올바른 쿠폰을 선택해주세요."));
-						break;
+						continue;
 					}
+					break;
 				} catch (InputMismatchException e) {
 					System.out.println(Function.Color.txtKiosk("잘못된 입력입니다. 사용할 쿠폰에 해당하는 숫자를 입력해주세요."));
 					scanner.next();
+					continue;
 				}
 			}
 
