@@ -27,7 +27,7 @@ public class Function {
 	}
 
 	// 주문 내역을 출력하는 함수
-	public static void printOrder() {	
+	public static void printOrder() {
 		int totalAmount = calculateTotal();
 		System.out.println("");
 		System.out.println("=== 주문 내역 ===");
@@ -44,9 +44,34 @@ public class Function {
 	// 가격 총합을 계산하는 함수
 	static int calculateTotal() {
 		int sum = 0;
+		int burger = 0, dessert = 0, beverage = 0;
 		for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
-			sum += item.price;
+			for (MenuList.MenuItem menu : MenuList.hamburgers) {
+				if (menu instanceof MenuList.Hamburger) {
+					if (item.name.equals(menu.name) && item.price == menu.price) {
+						System.out.println("버거");
+						sum = sum + item.price;
+						burger++;
+					}
+				}
+			}
+			for (MenuList.MenuItem menu : MenuList.desserts) {
+				if (item.name.equals(menu.name)) {
+					System.out.println("디저트");
+					sum = sum + item.price;
+					dessert++;
+				}
+			}
+			for (MenuList.MenuItem menu : MenuList.beverages) {
+				if (item.name.equals(menu.name)) {
+					System.out.println("음료");
+					sum = sum + item.price;
+					beverage++;
+				}
+			}
 		}
+		int min = Math.min(Math.min(burger, dessert), beverage);
+		sum = sum - min * (1800 + 2000);	// 세트 가격만큼 감산
 		return sum;
 	}
 
