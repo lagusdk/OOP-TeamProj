@@ -1,9 +1,10 @@
 import java.util.Scanner;
-import java.util.regex.Pattern;
+
 
 public class Function {
 	static Scanner scanner = new Scanner(System.in);
-
+	public static int largeSet = 0;
+	
 	// 예 아니요 형태의 사용자 입력을 boolean 값으로 반환하는 함수
 	public static boolean answer() {
 		while (true) {
@@ -30,15 +31,22 @@ public class Function {
 	public static void printOrder() {
 		int totalAmount = calculateTotal();
 		System.out.println("");
-		System.out.println("=== 주문 내역 ===");
+		System.out.println("============ 주문 내역 ===========");
 		for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
-			if (null == (item.option))
-				System.out.println(item.name + "\t\t\t" + item.price + "원");
-			else
-				System.out.println(item.name + " (" + item.option + ")\t\t" + item.price + "원");
+			if (null == (item.option)) {
+				System.out.printf("%-20s%5d원%n", item.name, item.price);
+			}
+			else {
+				System.out.printf("%-10s(%-10s)%5d원%n", item.name, item.option,item.price);
+			}
 		}
+		System.out.println("----------------------------------");
 		System.out.println("합계 \t\t\t" + totalAmount + "원");
-		System.out.println("=================");
+		System.out.println("**세트 가격이 자동으로 적용됩니다.");
+		System.out.println("==================================");
+		
+		
+		
 	}
 
 	// 가격 총합을 계산하는 함수
@@ -49,29 +57,27 @@ public class Function {
 			for (MenuList.MenuItem menu : MenuList.hamburgers) {
 				if (menu instanceof MenuList.Hamburger) {
 					if (item.name.equals(menu.name) && item.price == menu.price) {
-						System.out.println("버거");
 						sum = sum + item.price;
 						burger++;
 					}
 				}
 			}
 			for (MenuList.MenuItem menu : MenuList.desserts) {
-				if (item.name.equals(menu.name)) {
-					System.out.println("디저트");
+				if (item.name.equals(menu.name) && largeSet==0) {
 					sum = sum + item.price;
 					dessert++;
 				}
 			}
 			for (MenuList.MenuItem menu : MenuList.beverages) {
-				if (item.name.equals(menu.name)) {
-					System.out.println("음료");
+				if (item.name.equals(menu.name) && largeSet==0) {
 					sum = sum + item.price;
 					beverage++;
 				}
 			}
 		}
+		
 		int min = Math.min(Math.min(burger, dessert), beverage);
-		sum = sum - min * (1800 + 2000);	// 세트 가격만큼 감산
+		sum = sum - min * (1800 + 2000) + 500*largeSet;	// 세트 가격만큼 감산
 		return sum;
 	}
 

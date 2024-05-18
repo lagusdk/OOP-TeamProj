@@ -196,6 +196,7 @@ public class Order {
 						System.out.println("[키오스크] 라지 세트를 선택하셨습니다.");
 						storageMenu("포테이토(L)");
 						storageMenu("콜라(L)");
+						Function.largeSet++;
 						isLoop = false;
 					} else {
 						System.out.println("[키오스크] 세트 구성품을 다시 선택해주세요!");
