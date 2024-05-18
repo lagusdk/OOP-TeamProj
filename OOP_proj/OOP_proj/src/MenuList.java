@@ -105,26 +105,41 @@ public class MenuList {
 
 	// 메뉴판 출력
 	public static void printMenu() {
-		System.out.println("");
-		System.out.println("[ 햄버거 ]");
+		System.out.println("================== 메뉴판 =================");
+		System.out.println("——————————————— 햄버거 세트 ———————————————");
 		for (MenuItem item : hamburgers) {
-			System.out.println(item.name + "\t |   " + "W " + item.price);
+			if (item instanceof MenuList.Hamburger) {
+				MenuList.Hamburger hamburger = (MenuList.Hamburger) item;
+				if (hamburger.set)
+					if (item.name.length() < 8)
+						System.out.printf("%s\t\t\t%5d원\n", item.name, item.price);
+					else
+						System.out.printf("%s\t\t%5d원\n", item.name, item.price);
+			}
 		}
 
 		System.out.println("");
 
-		System.out.println("[ 디저트 ]");
+		System.out.println("————————————————— 디저트 —————————————————");
 		for (MenuItem item : desserts) {
-			System.out.println(item.name + "\t |   " + "W " + item.price);
+			if (item.name.length() < 8)
+				System.out.printf("%s\t\t\t%5d원\n", item.name, item.price);
+			else
+				System.out.printf("%s\t\t%5d원\n", item.name, item.price);
 		}
 
 		System.out.println("");
 
-		System.out.println("[ 음료 ]");
+		System.out.println("—————————————————— 음료 ——————————————————");
 		for (MenuItem item : beverages) {
-			System.out.println(item.name + "\t |   " + "W " + item.price);
+			if (item.name.length() < 5)
+				System.out.printf("%s\t\t\t\t%5d원\n", item.name, item.price);
+			else if (item.name.length() < 8)
+				System.out.printf("%s\t\t\t%5d원\n", item.name, item.price);
+			else
+				System.out.printf("%s\t\t%5d원\n", item.name, item.price);
 		}
-
+		System.out.println("==========================================");
 		System.out.println("");
 	}
 

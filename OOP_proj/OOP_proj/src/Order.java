@@ -12,7 +12,7 @@ public class Order {
 		public String name; // 메뉴 이름
 		public int price; // 가격
 		public int time; // 대기 시간
-		public String option; // 시즈닝 혹은 맛 저장
+		public String option; // (양념감자)시즈닝, (선데아이스크림)맛 저장
 
 		public static ArrayList<OrderHistory> orderhistory = new ArrayList<>();
 
@@ -37,59 +37,44 @@ public class Order {
 			boolean isLoop = false;
 
 			do {
-				System.out.println("[키오스크] 메뉴를 한 개 선택해주세요.");
+				System.out.println(Function.Color.txtKiosk("메뉴를 한 개 선택해주세요.(메뉴판 요청 시 메뉴 출력)"));
 				System.out.print(">>");
 				buffer = scanner.nextLine();
 				answer = buffer;
 
-				// 단어 '메뉴'와 매치되는 경우
-				if (buffer.matches(".*(메뉴|뭐|종류)+.*")) {
-					MenuList.printMenu();
-					isLoop = true;
-				}
 				// 음식 이름과 매치되는 경우
-				else if (Pattern.matches(burgerName, buffer)) {
+				if (Pattern.matches(burgerName, buffer)) {
 					OrderBurgers.checkBurgerSet(buffer, answer);
 					isLoop = false;
 				} else if (OrderDesserts.storageMenu(answer) || OrderBeverages.storageMenu(answer)) {
 					isLoop = false;
 				} else if (Function.answer(answer) == 0) {
 					isLoop = false;
+				}
+				// 단어 '메뉴'와 매치되는 경우
+				else if (buffer.matches(".*(메뉴|뭐|종류)+.*")) {
+					MenuList.printMenu();
+					isLoop = true;
 				} else {
-					System.out.println("[키오스크] 올바른 메뉴를 선택해주세요.");
+					System.out.println(Function.Color.txtKiosk("올바른 메뉴를 선택해주세요."));
 					isLoop = true;
 				}
 			} while (isLoop);
 		}
 
-		// 파라미터 name을 MenuList와 대조하여, 해당하는 price와 time을 orderhistory에 저장하는 함수
+		// 메뉴를 배열에 저장하는 함수
 		public static boolean storageMenu(String name) {
 			for (MenuList.MenuItem item : MenuList.hamburgers) {
-				if (name.equals(item.name)) {
+				if (name.equals(item.name))
 					new OrderHistory(item.name, item.price, item.time, null);
-				}
 			}
 			for (MenuList.MenuItem item : MenuList.desserts) {
-				if (name.equals(item.name)) {
+				if (name.equals(item.name))
 					new OrderHistory(item.name, item.price, item.time, null);
-				}
 			}
 			for (MenuList.MenuItem item : MenuList.beverages) {
-				if (name.equals(item.name)) {
+				if (name.equals(item.name))
 					new OrderHistory(item.name, item.price, item.time, null);
-				}
-			}
-			return false;
-		}
-
-		public static boolean storageMenu(String name, boolean set) {
-			for (MenuList.MenuItem item : MenuList.hamburgers) {
-				if (item instanceof MenuList.Hamburger) {
-					MenuList.Hamburger hamburger = (MenuList.Hamburger) item;
-					if (name.equals(hamburger.name) && set == hamburger.set) {
-						new OrderHistory(hamburger.name, hamburger.price, hamburger.time, null);
-					}
-				}
 			}
 			return false;
 		}
@@ -101,6 +86,18 @@ public class Order {
 	}
 
 	public static class OrderBurgers extends OrderMethod {
+		// 버거를 저장하는 함수
+		public static boolean storageMenu(String name, boolean set) {
+			for (MenuList.MenuItem item : MenuList.hamburgers) {
+				if (item instanceof MenuList.Hamburger) {
+					MenuList.Hamburger hamburger = (MenuList.Hamburger) item;
+					if (name.equals(hamburger.name) && set == hamburger.set)
+						new OrderHistory(hamburger.name, hamburger.price, hamburger.time, null);
+				}
+			}
+			return false;
+		}
+
 		// 버거 세트와 단품 여부를 결정하는 함수
 		public static void checkBurgerSet(String buffer, String answer) {
 			while (true) {
@@ -111,7 +108,7 @@ public class Order {
 					orderBurger(answer, false);
 					break;
 				} else {
-					System.out.println("[키오스크] 세트와 단품 중 어느 것을 주문하시겠습니까?");
+					System.out.println(Function.Color.txtKiosk("세트와 단품 중 어느 것을 주문하시겠습니까?"));
 					System.out.print(">>");
 					buffer = scanner.nextLine();
 				}
@@ -146,7 +143,7 @@ public class Order {
 		public static void orderBurgerSet(String answer) {
 			if (Pattern.matches(burgerName, answer)) {
 				orderBurger(answer, true);
-				System.out.println("[키오스크] 세트 구성품(포테이토와 콜라)을 변경하시겠습니까?");
+				System.out.println(Function.Color.txtKiosk("세트 구성품(포테이토와 콜라)을 변경하시겠습니까?"));
 				if (Function.answer()) {
 					changeBurgerSet();
 				} else {
@@ -154,7 +151,7 @@ public class Order {
 					storageMenu("콜라(R)");
 				}
 			} else
-				System.out.println("[키오스크] 올바른 메뉴를 선택해주세요.");
+				System.out.println(Function.Color.txtKiosk("올바른 메뉴를 선택해주세요."));
 		}
 
 		// 버거 세트 구성품을 변경하여 주문 내역에 추가하는 함수
@@ -164,12 +161,12 @@ public class Order {
 			boolean isLoop = false;
 
 			do {
-				System.out.println("[키오스크] 구성품을 어떤 메뉴로 변경할까요?");
+				System.out.println(Function.Color.txtKiosk("구성품을 어떤 메뉴로 변경할까요?"));
 				System.out.print(">>");
 				answer = scanner.nextLine();
 
 				if (Function.answer(answer) == 0) {
-					System.out.println("[키오스크] 구성품 변경을 취소할까요?");
+					System.out.println(Function.Color.txtKiosk("구성품 변경을 취소할까요?"));
 					if (Function.answer())
 						isLoop = false;
 					break;
@@ -183,7 +180,7 @@ public class Order {
 				if (buffer_desserts && buffer_beverages) {
 					isLoop = false;
 				} else if (buffer_desserts ^ buffer_beverages) {
-					System.out.println("[키오스크] 다른 세트 구성품도 변경하시겠습니까?");
+					System.out.println(Function.Color.txtKiosk("다른 세트 구성품도 변경하시겠습니까?"));
 					isLoop = Function.answer();
 					if (isLoop == false) {
 						if (buffer_desserts)
@@ -193,12 +190,12 @@ public class Order {
 					}
 				} else if (!(buffer_desserts || buffer_beverages)) {
 					if (answer.matches("(.*라지\\s?세트*.)|(.*라지*.)")) {
-						System.out.println("[키오스크] 라지 세트를 선택하셨습니다.");
+						System.out.println(Function.Color.txtKiosk("라지 세트를 선택하셨습니다."));
 						storageMenu("포테이토(L)");
 						storageMenu("콜라(L)");
 						isLoop = false;
 					} else {
-						System.out.println("[키오스크] 세트 구성품을 다시 선택해주세요!");
+						System.out.println(Function.Color.txtKiosk("세트 구성품을 다시 선택해주세요!"));
 						isLoop = true;
 					}
 				}
@@ -256,7 +253,7 @@ public class Order {
 		// 양념감자 시즈닝을 저장하는 함수
 		public static void optioningSeasoning(MenuList.MenuItem item) {
 			while (true) {
-				System.out.println("[키오스크] 양념감자 시즈닝을 선택해주세요. (어니언, 치즈, 칠리 중 선택)");
+				System.out.println(Function.Color.txtKiosk("양념감자 시즈닝을 선택해주세요. (어니언, 치즈, 칠리 중 선택)"));
 				System.out.print(">>");
 				String answer = scanner.nextLine();
 				if (answer.matches(".*(어니언)+.*")) {
@@ -275,13 +272,13 @@ public class Order {
 		// 토네이도를 저장하는 함수
 		public static void optioningTornado(MenuList.MenuItem item) {
 			while (true) {
-				System.out.println("[키오스크] 토네이도 맛을 선택해주세요. (초코쿠키, 스트로베리, 더블초코 중 선택)");
+				System.out.println(Function.Color.txtKiosk("토네이도 맛을 선택해주세요. (초코쿠키, 스트로베리, 더블초코 중 선택)"));
 				System.out.print(">>");
 				String answer = scanner.nextLine();
-				if (answer.matches(".*(초코쿠키)+.*")) {
+				if (answer.matches(".*(초코쿠키|쿠키)+.*")) {
 					new OrderHistory(item.name, item.price, item.time, "초코쿠키");
 					break;
-				} else if (answer.matches(".*(스트로베리)+.*")) {
+				} else if (answer.matches(".*(스트로베리|딸기|베리)+.*")) {
 					new OrderHistory(item.name, item.price, item.time, "스트로베리");
 					break;
 				} else if (answer.matches(".*(더블초코)+.*")) {
@@ -294,7 +291,7 @@ public class Order {
 		// 선데아이스크림 저장하는 함수
 		public static void optioningIcecream(MenuList.MenuItem item) {
 			while (true) {
-				System.out.println("[키오스크] 선데아이스크림 맛을 선택해주세요. (플레인, 스트로베리, 허쉬초코 중 선택)");
+				System.out.println(Function.Color.txtKiosk("선데아이스크림 맛을 선택해주세요. (플레인, 스트로베리, 허쉬초코 중 선택)"));
 				System.out.print(">>");
 				String answer = scanner.nextLine();
 				if (answer.matches(".*(플레인)+.*")) {
@@ -344,7 +341,7 @@ public class Order {
 
 		public static void optioningSize(MenuList.MenuItem item) {
 			while (true) {
-				System.out.println("[키오스크] 음료의 사이즈를 선택해주세요.(R/L)");
+				System.out.println(Function.Color.txtKiosk("음료의 사이즈를 선택해주세요.(R/L)"));
 				System.out.print(">>");
 				String buffer = scanner.nextLine();
 
@@ -354,7 +351,6 @@ public class Order {
 				} else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
 					String nameLarge = (item.name).substring(0, (item.name).length() - 3) + "(L)";
 					storageMenu(nameLarge);
-
 					break;
 				}
 			}
