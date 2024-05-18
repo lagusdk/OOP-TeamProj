@@ -81,17 +81,17 @@ public class Order {
 			}
 			return false;
 		}
-		
+
 		public static boolean storageMenu(String name, boolean set) {
 			for (MenuList.MenuItem item : MenuList.hamburgers) {
-		        if (item instanceof MenuList.Hamburger) {
-		        	MenuList.Hamburger hamburger = (MenuList.Hamburger) item;
-		            if (name.equals(hamburger.name) && set == hamburger.set) {
-		                new OrderHistory(hamburger.name, hamburger.price, hamburger.time, null);
-		            }
-		        }
-		    }
-		    return false;
+				if (item instanceof MenuList.Hamburger) {
+					MenuList.Hamburger hamburger = (MenuList.Hamburger) item;
+					if (name.equals(hamburger.name) && set == hamburger.set) {
+						new OrderHistory(hamburger.name, hamburger.price, hamburger.time, null);
+					}
+				}
+			}
+			return false;
 		}
 
 		// 디저트 혹은 음료의 사이즈를 저장하는 함수
@@ -196,7 +196,6 @@ public class Order {
 						System.out.println("[키오스크] 라지 세트를 선택하셨습니다.");
 						storageMenu("포테이토(L)");
 						storageMenu("콜라(L)");
-						Function.largeSet++;
 						isLoop = false;
 					} else {
 						System.out.println("[키오스크] 세트 구성품을 다시 선택해주세요!");
@@ -344,27 +343,22 @@ public class Order {
 		}
 
 		public static void optioningSize(MenuList.MenuItem item) {
-		    while (true) {
-		        System.out.println("[키오스크] 음료의 사이즈를 선택해주세요.(R/L)");
-		        System.out.print(">>");
-		        String buffer = scanner.nextLine();
+			while (true) {
+				System.out.println("[키오스크] 음료의 사이즈를 선택해주세요.(R/L)");
+				System.out.print(">>");
+				String buffer = scanner.nextLine();
 
-		        if (buffer.matches(".*(레귤러|기본|보통|R|r)+.*")) {
-		            // Regular size 선택
-		            new Order.OrderHistory(item.name + "(R)", item.price, item.time, null);
-		            break;
-		        } else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
-		            // Large size 선택 - 이름을 변경하고 추가 비용을 계산
-		            String nameLarge = item.name + "(L)";
-		            int additionalPrice = 200; // Large 사이즈 추가 비용
-		            int newPrice = item.price + additionalPrice;
+				if (buffer.matches(".*(레귤러|기본|보통|R|r)+.*")) {
+					new OrderHistory(item.name, item.price, item.time, null);
+					break;
+				} else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
+					String nameLarge = (item.name).substring(0, (item.name).length() - 3) + "(L)";
+					storageMenu(nameLarge);
 
-		            new Order.OrderHistory(nameLarge, newPrice, item.time, + additionalPrice + "원 추가");
-		            break;
-		        } else {
-		            System.out.println("[키오스크] 잘못된 입력입니다. R 또는 L을 입력해주세요.");
-		        }
-		    }
+					break;
+				}
+			}
 		}
 	}
+
 }

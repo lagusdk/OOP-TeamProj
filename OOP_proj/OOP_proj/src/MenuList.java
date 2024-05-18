@@ -25,6 +25,7 @@ public class MenuList {
 	// 상속 활용하여 각 카테고리별 메뉴 항목을 추가
 	public static class Hamburger extends MenuItem {
 		public boolean set; // 세트
+
 		public Hamburger(String name, int price, int time, boolean set) {
 			super(name, price, time); // 부모 클래스의 생성자 호출
 			this.set = set;

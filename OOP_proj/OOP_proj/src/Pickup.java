@@ -35,7 +35,8 @@ public class Pickup {
 			}
 		}
 
-		System.out.println("[system] 음식을 준비하고 있습니다... (예상 대기 시간 " + maxWaitingTime / 60 + "분 " + maxWaitingTime % 60 + "초)");
+		System.out.println(
+				"[system] 음식을 준비하고 있습니다... (예상 대기 시간 " + maxWaitingTime / 60 + "분 " + maxWaitingTime % 60 + "초)");
 
 		System.out.print("(남은 시간)");
 		while (maxWaitingTime > 120) {
@@ -43,7 +44,7 @@ public class Pickup {
 			Function.timer(0.5);
 			maxWaitingTime = maxWaitingTime - 30;
 		}
-		while (maxWaitingTime <= 240 && maxWaitingTime > 30 ) {
+		while (maxWaitingTime <= 240 && maxWaitingTime > 30) {
 			System.out.print("띠리리~ ");
 			Function.timer(0.5);
 			maxWaitingTime = maxWaitingTime - 30;

@@ -1,10 +1,8 @@
 import java.util.Scanner;
 
-
 public class Function {
 	static Scanner scanner = new Scanner(System.in);
-	public static int largeSet = 0;
-	
+
 	// 예 아니요 형태의 사용자 입력을 boolean 값으로 반환하는 함수
 	public static boolean answer() {
 		while (true) {
@@ -28,31 +26,34 @@ public class Function {
 	}
 
 	// 주문 내역을 출력하는 함수
-		public static void printOrder() {
-		    System.out.println("============ 주문 내역 ===========");
-		    int total = 0;
-		    for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
-		        // 음료 사이즈 옵션을 확인하고 중복되지 않도록 이름을 처리
-		        String itemName = item.name;
-		        if (item.name.contains("(R)(L)")) {
-		            itemName = item.name.replace("(R)(L)", "(L)");
-		        }
+	public static void printOrder() {
+		int totalAmount = calculateTotal();
+		String itemName = null;
+		String itemOptions = null;
 
-		        String options = item.option != null ? " (" + item.option + ")" : "";
-		        System.out.printf("%s %s %d원\n", itemName, options, item.price);
-		        total += item.price;
-		    }
-		    System.out.println("—————————————————");
-		    System.out.printf("합계\t\t\t%d원\n", total);
-		    System.out.println("**세트 가격이 자동으로 적용됩니다.");
-		    System.out.println("==================================");
+		System.out.println("");
+		System.out.println("=============== 주문 내역 ==============");
+		for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
+			itemName = item.name;
+			itemOptions = item.option == null ? "" : "(" + item.option + ")";
+			if (item.name.length() < 8)
+				System.out.printf("%-11s%-5s\t\t%5d원\n", itemName, itemOptions, item.price);
+			else
+				System.out.printf("%-11s%-5s\t%5d원\n", itemName, itemOptions, item.price);
 		}
-		
+		System.out.println("————————————————————————————————————————");
+		System.out.printf("합계\t\t\t\t%5d원\n", totalAmount);
+		System.out.println("*세트 가격이 자동으로 적용됩니다.*");
+		System.out.println("========================================");
+
+	}
 
 	// 가격 총합을 계산하는 함수
 	static int calculateTotal() {
 		int sum = 0;
 		int burger = 0, dessert = 0, beverage = 0;
+		int potatoLarge = 0, beverageLarge = 0;
+
 		for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
 			for (MenuList.MenuItem menu : MenuList.hamburgers) {
 				if (menu instanceof MenuList.Hamburger) {
@@ -63,21 +64,26 @@ public class Function {
 				}
 			}
 			for (MenuList.MenuItem menu : MenuList.desserts) {
-				if (item.name.equals(menu.name) && largeSet==0) {
+				if (item.name.equals(menu.name)) {
 					sum = sum + item.price;
 					dessert++;
+					if (item.name.contains("(L)"))
+						potatoLarge++;
 				}
 			}
 			for (MenuList.MenuItem menu : MenuList.beverages) {
-				if (item.name.equals(menu.name) && largeSet==0) {
+				if (item.name.equals(menu.name)) {
 					sum = sum + item.price;
 					beverage++;
+					if (item.name.contains("(L)"))
+						beverageLarge++;
 				}
 			}
 		}
-		
+
 		int min = Math.min(Math.min(burger, dessert), beverage);
-		sum = sum - min * (1800 + 2000) + 500*largeSet;	// 세트 가격만큼 감산
+		int minLarge = Math.min(potatoLarge, beverageLarge);
+		sum = sum - min * (1800 + 2000) - 100 * minLarge; // 세트 가격만큼 감산
 		return sum;
 	}
 

@@ -48,11 +48,11 @@ public abstract class Payment {
 		System.out.println("지불 금액\t: " + payedAmount + "원");
 
 		System.out.println("주문번호\t: " + random);
-		System.out.println("=================");
+		System.out.println("========================================");
 	}
-	
+
 	public abstract int payment(int totalAmount);
-	
+
 	public class cash {
 		// 현금 결제 함수
 		static int payment(int totalAmount) {
@@ -86,6 +86,7 @@ public abstract class Payment {
 			return totalAmount;
 		}
 	}
+
 	public class card {
 		// 카드 결제 함수
 		static int payment(int totalAmount) {
@@ -120,7 +121,7 @@ public abstract class Payment {
 		}
 
 	}
-	
+
 	public class coupon {
 		// 쿠폰 결제 함수
 		static int payment(int totalAmount) {
@@ -169,5 +170,5 @@ public abstract class Payment {
 			return discountedPrice;
 		}
 	}
-	
+
 }
