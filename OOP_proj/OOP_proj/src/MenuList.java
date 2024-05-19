@@ -6,6 +6,8 @@ public class MenuList {
 	public static List<MenuItem> hamburgers = new ArrayList<>();
 	public static List<MenuItem> desserts = new ArrayList<>();
 	public static List<MenuItem> beverages = new ArrayList<>();
+	static int[] hamburgersSinglePrice = {3300, 4000, 4700, 4700, 7100, 4700, 8400, 5900, 7500, 6900};
+	
 
 	// 메뉴 항목 나타내는 클래스(상속: 모든 메뉴 항목의 기반 클래스 역할)
 	public static class MenuItem {
@@ -106,15 +108,18 @@ public class MenuList {
 	// 메뉴판 출력
 	public static void printMenu() {
 		System.out.println("================== 메뉴판 =================");
-		System.out.println("——————————————— 햄버거 세트 ———————————————");
+		System.out.println("————————————— 햄버거(단품/세트) —————————————");
+		int i = 0;
 		for (MenuItem item : hamburgers) {
 			if (item instanceof MenuList.Hamburger) {
 				MenuList.Hamburger hamburger = (MenuList.Hamburger) item;
-				if (hamburger.set)
-					if (item.name.length() < 8)
-						System.out.printf("%s\t\t\t%5d원\n", item.name, item.price);
+				if (hamburger.set) {
+					if (item.name.length() < 7)
+						System.out.printf("%s\t\t\t"+hamburgersSinglePrice[i]+"원\t%5d원\n", item.name, item.price);
 					else
-						System.out.printf("%s\t\t%5d원\n", item.name, item.price);
+						System.out.printf("%s\t\t"+hamburgersSinglePrice[i]+"원\t%5d원\n", item.name, item.price);
+					i++;
+				}	
 			}
 		}
 
@@ -122,10 +127,10 @@ public class MenuList {
 
 		System.out.println("————————————————— 디저트 —————————————————");
 		for (MenuItem item : desserts) {
-			if (item.name.length() < 8)
-				System.out.printf("%s\t\t\t%5d원\n", item.name, item.price);
+			if (item.name.length() < 7)
+				System.out.printf("%s\t\t\t\t%5d원\n", item.name, item.price);
 			else
-				System.out.printf("%s\t\t%5d원\n", item.name, item.price);
+				System.out.printf("%s\t\t\t%5d원\n", item.name, item.price);
 		}
 
 		System.out.println("");
@@ -135,9 +140,9 @@ public class MenuList {
 			if (item.name.length() < 5)
 				System.out.printf("%s\t\t\t\t%5d원\n", item.name, item.price);
 			else if (item.name.length() < 8)
-				System.out.printf("%s\t\t\t%5d원\n", item.name, item.price);
+				System.out.printf("%s\t\t\t\t%5d원\n", item.name, item.price);
 			else
-				System.out.printf("%s\t\t%5d원\n", item.name, item.price);
+				System.out.printf("%s\t\t\t%5d원\n", item.name, item.price);
 		}
 		System.out.println("==========================================");
 		System.out.println("");

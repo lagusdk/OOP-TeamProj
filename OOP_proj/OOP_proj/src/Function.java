@@ -36,15 +36,14 @@ public class Function {
 		String itemOptions = null;
 
 		System.out.println("");
-		System.out.println("=============== 주문 내역 ==============");
-		for (Order.OrderHistory item : Order.OrderHistory.orderhistory) {
+		System.out.println("================ 주문 내역 ================");
+		for (Order.NoOverLap item : Order.NoOverLap.noOverLap) {
 			itemName = item.name;
 			itemOptions = item.option == null ? "" : "(" + item.option + ")";
-			if (item.name.length() < 8)
-				System.out.printf("%-11s%-5s\t\t%5d원\n", itemName, itemOptions, item.price);
-			else
-				System.out.printf("%-11s%-5s\t%5d원\n", itemName, itemOptions, item.price);
+			System.out.printf("%-11s%-5s\t%d\t%5d원\n", itemName, itemOptions, item.count, item.price*item.count);
 		}
+		
+		
 		System.out.println("————————————————————————————————————————");
 		System.out.printf("합계\t\t\t\t%5d원\n", totalAmount);
 		System.out.println("*세트 가격이 자동으로 적용됩니다.*");
