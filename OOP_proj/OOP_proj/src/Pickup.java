@@ -9,7 +9,7 @@ public class Pickup {
 	public static void checkTakeout() {
 		String answer;
 		while (true) {
-			System.out.println(Function.Color.txtKiosk("포장과 매장 중 이용 방법을 선택해주세요."));
+			System.out.println(Color.txtKiosk("포장과 매장 중 이용 방법을 선택해주세요."));
 			System.out.print(">>");
 			answer = scanner.nextLine();
 			if (answer.matches(".*(포장|가져)+.*")) {
@@ -32,7 +32,7 @@ public class Pickup {
 				maxWaitingTime = item.time;
 		}
 
-		System.out.println(Function.Color
+		System.out.println(Color
 				.txtSystem("음식을 준비하고 있습니다... (예상 대기 시간 " + maxWaitingTime / 60 + "분 " + maxWaitingTime % 60 + "초)"));
 
 		System.out.print("(남은 시간)");
@@ -43,21 +43,21 @@ public class Pickup {
 		}
 		while (maxWaitingTime <= 240 && maxWaitingTime > 30) {
 			System.out.print("띠리리~ ");
-			Function.timer(0.5);
+			Function.timer(1);
 			maxWaitingTime = maxWaitingTime - 30;
 		}
 		System.out.println("띡!");
 
-		System.out.println(Function.Color.txtSystem("주문번호 " + Payment.random + "번 손님! 음식이 준비되었습니다."));
+		System.out.println(Color.txtSystem("주문번호 " + Payment.random + "번 손님! 음식이 준비되었습니다."));
 		Function.timer(2);
 
-		System.out.println(Function.Color.txtSystem("픽업 완료!"));
+		System.out.println(Color.txtSystem("픽업 완료!"));
 		Function.timer(2);
 
 		if (isPackaging == 1)
-			System.out.println(Function.Color.txtSystem("음식을 맛있게 먹고 트레이는 제자리에 가져다 놓았다!"));
+			System.out.println(Color.txtSystem("음식을 맛있게 먹고 트레이는 제자리에 가져다 놓았다!"));
 		else if (isPackaging == 0)
-			System.out.println(Function.Color.txtSystem("포장된 음식을 가져가 맛있게 먹었다!"));
+			System.out.println(Color.txtSystem("포장된 음식을 가져가 맛있게 먹었다!"));
 		Function.timer();
 	}
 }

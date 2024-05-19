@@ -1,7 +1,6 @@
 
 // 주문 내역 저장 함수를 제공하는 클래스
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -66,7 +65,7 @@ public class Order {
 			String answer, buffer;
 
 			while (true) {
-				System.out.println(Function.Color.txtKiosk("메뉴를 한 개 선택해주세요.(메뉴판 요청 시 메뉴 출력)"));
+				System.out.println(Color.txtKiosk("메뉴를 한 개 선택해주세요.(메뉴판 요청 시 메뉴 출력)"));
 				System.out.print(">>");
 				buffer = scanner.nextLine();
 				answer = buffer;
@@ -85,7 +84,7 @@ public class Order {
 					MenuList.printMenu();
 					continue;
 				} else {
-					System.out.println(Function.Color.txtKiosk("올바른 메뉴를 선택해주세요."));
+					System.out.println(Color.txtKiosk("올바른 메뉴를 선택해주세요."));
 					continue;
 				}
 			}
@@ -136,7 +135,7 @@ public class Order {
 					orderBurger(answer, false);
 					break;
 				} else {
-					System.out.println(Function.Color.txtKiosk("세트와 단품 중 어느 것을 주문하시겠습니까?"));
+					System.out.println(Color.txtKiosk("세트와 단품 중 어느 것을 주문하시겠습니까?"));
 					System.out.print(">>");
 					buffer = scanner.nextLine();
 				}
@@ -171,7 +170,7 @@ public class Order {
 		public static void orderBurgerSet(String answer) {
 			if (Pattern.matches(burgerName, answer)) {
 				orderBurger(answer, true);
-				System.out.println(Function.Color.txtKiosk("세트 구성품(포테이토와 콜라)을 변경하시겠습니까?"));
+				System.out.println(Color.txtKiosk("세트 구성품(포테이토와 콜라)을 변경하시겠습니까?"));
 				if (Function.answer()) {
 					changeBurgerSet();
 				} else {
@@ -179,7 +178,7 @@ public class Order {
 					storageMenu("콜라(R)");
 				}
 			} else
-				System.out.println(Function.Color.txtKiosk("올바른 메뉴를 선택해주세요."));
+				System.out.println(Color.txtKiosk("올바른 메뉴를 선택해주세요."));
 		}
 
 		// 버거 세트 구성품을 변경하여 주문 내역에 추가하는 함수
@@ -188,12 +187,12 @@ public class Order {
 			boolean buffer_desserts = false, buffer_beverages = false;
 
 			while (true) {
-				System.out.println(Function.Color.txtKiosk("구성품을 어떤 메뉴로 변경할까요?"));
+				System.out.println(Color.txtKiosk("구성품을 어떤 메뉴로 변경할까요?"));
 				System.out.print(">>");
 				answer = scanner.nextLine();
 
 				if (Function.answer(answer) == 0) {
-					System.out.println(Function.Color.txtKiosk("구성품 변경을 취소할까요?"));
+					System.out.println(Color.txtKiosk("구성품 변경을 취소할까요?"));
 					if (Function.answer())
 						break;
 				}
@@ -206,7 +205,7 @@ public class Order {
 				if (buffer_desserts && buffer_beverages) {
 					break;
 				} else if (buffer_desserts ^ buffer_beverages) {
-					System.out.println(Function.Color.txtKiosk("다른 세트 구성품도 변경하시겠습니까?"));
+					System.out.println(Color.txtKiosk("다른 세트 구성품도 변경하시겠습니까?"));
 					if (Function.answer() == false) {
 						if (buffer_desserts)
 							storageMenu("콜라(R)");
@@ -216,12 +215,12 @@ public class Order {
 					}
 				} else if (!(buffer_desserts || buffer_beverages)) {
 					if (answer.matches("(.*라지\\s?세트*.)|(.*라지*.)")) {
-						System.out.println(Function.Color.txtKiosk("라지 세트를 선택하셨습니다."));
+						System.out.println(Color.txtKiosk("라지 세트를 선택하셨습니다."));
 						storageMenu("포테이토(L)");
 						storageMenu("콜라(L)");
 						break;
 					} else
-						System.out.println(Function.Color.txtKiosk("세트 구성품을 다시 선택해주세요!"));
+						System.out.println(Color.txtKiosk("세트 구성품을 다시 선택해주세요!"));
 
 				}
 			}
@@ -281,7 +280,7 @@ public class Order {
 		// 양념감자 시즈닝을 저장하는 함수
 		public static void optioningSeasoning(MenuList.MenuItem item) {
 			while (true) {
-				System.out.println(Function.Color.txtKiosk("양념감자 시즈닝을 선택해주세요. (어니언, 치즈, 칠리 중 선택)"));
+				System.out.println(Color.txtKiosk("양념감자 시즈닝을 선택해주세요. (어니언, 치즈, 칠리 중 선택)"));
 				System.out.print(">>");
 				String answer = scanner.nextLine();
 				if (answer.matches(".*(어니언)+.*")) {
@@ -300,7 +299,7 @@ public class Order {
 		// 토네이도를 저장하는 함수
 		public static void optioningTornado(MenuList.MenuItem item) {
 			while (true) {
-				System.out.println(Function.Color.txtKiosk("토네이도 맛을 선택해주세요. (초코쿠키, 스트로베리, 더블초코 중 선택)"));
+				System.out.println(Color.txtKiosk("토네이도 맛을 선택해주세요. (초코쿠키, 스트로베리, 더블초코 중 선택)"));
 				System.out.print(">>");
 				String answer = scanner.nextLine();
 				if (answer.matches(".*(초코쿠키|쿠키)+.*")) {
@@ -319,7 +318,7 @@ public class Order {
 		// 선데아이스크림 저장하는 함수
 		public static void optioningIcecream(MenuList.MenuItem item) {
 			while (true) {
-				System.out.println(Function.Color.txtKiosk("선데아이스크림 맛을 선택해주세요. (플레인, 스트로베리, 허쉬초코 중 선택)"));
+				System.out.println(Color.txtKiosk("선데아이스크림 맛을 선택해주세요. (플레인, 스트로베리, 허쉬초코 중 선택)"));
 				System.out.print(">>");
 				String answer = scanner.nextLine();
 				if (answer.matches(".*(플레인)+.*")) {
@@ -369,7 +368,7 @@ public class Order {
 
 		public static void optioningSize(MenuList.MenuItem item) {
 			while (true) {
-				System.out.println(Function.Color.txtKiosk("음료의 사이즈를 선택해주세요.(R/L)"));
+				System.out.println(Color.txtKiosk("음료의 사이즈를 선택해주세요.(R/L)"));
 				System.out.print(">>");
 				String buffer = scanner.nextLine();
 
