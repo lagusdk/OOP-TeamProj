@@ -13,18 +13,17 @@ public class Main {
 			Order.OrderHistory.orderhistory.clear();
 
 			// 메인 메뉴
-			System.out.println(
-					Function.Color.ANSI_GREEN + "\n===== 객체지향프로그래밍 팀프로젝트 =====\n" + Function.Color.ANSI_RESET);
-			System.out.println(Function.Color.txtSystem("메인 메뉴"));
+			System.out.println(Color.ANSI_GREEN + "\n===== 객체지향프로그래밍 팀프로젝트 =====\n" + Color.ANSI_RESET);
+			System.out.println(Color.txtSystem("메인 메뉴"));
 			Function.timer();
-			System.out.println(Function.Color.txtSystem("롯데리아에 입장하시겠습니까?"));
+			System.out.println(Color.txtSystem(Color.txtLotte()+"에 입장하시겠습니까?"));
 
 			if (Function.answer()) {
 				Simulation(); // 시뮬레이션 진행
+				System.out.println(Color.txtSystem("시뮬레이션 종료"));
 			} else {
-				System.out.println(Function.Color.txtSystem("시뮬레이션 종료"));
-				System.out.println(Function.Color.ANSI_GREEN + "========================================="
-						+ Function.Color.ANSI_RESET);
+				System.out.println(Color.txtSystem("시뮬레이션 종료"));
+				System.out.println(Color.ANSI_GREEN + "=========================================" + Color.ANSI_RESET);
 				break;
 			}
 			Function.timer(3);
@@ -34,9 +33,9 @@ public class Main {
 
 	// 메인 시뮬레이션 함수
 	public static void Simulation() {
-		System.out.println(Function.Color.txtSystem("롯데리아 입장"));
+		System.out.println(Color.txtSystem(Color.txtLotte()+" 입장"));
 		Function.timer();
-		System.out.println(Function.Color.txtSystem("키오스크를 통해 주문합니다."));
+		System.out.println(Color.txtSystem("키오스크를 통해 주문합니다."));
 		Function.timer();
 
 		// 포장 혹은 매장 선택
@@ -45,7 +44,7 @@ public class Main {
 		// 메뉴 선택
 		while (true) {
 			Order.OrderMethod.orderLoops(); // 메뉴 선택
-			System.out.println(Function.Color.txtSystem("주문을 계속할까요?"));
+			System.out.println(Color.txtSystem("주문을 계속할까요?"));
 			if (Function.answer())
 				continue;
 			else
@@ -59,7 +58,7 @@ public class Main {
 			Payment.paymentLoop(); // 결제
 			Pickup.pickupOrder(); // 픽업
 		} else {
-			System.out.println(Function.Color.txtSystem("당신은 어떤 음식도 주문하지 않고 뻘쭘하게 매장 밖으로 나왔습니다."));
+			System.out.println(Color.txtSystem("당신은 어떤 음식도 주문하지 않고 뻘쭘하게 매장 밖으로 나왔습니다."));
 		}
 	}
 }
