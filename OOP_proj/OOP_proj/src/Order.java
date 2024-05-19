@@ -1,6 +1,7 @@
 
 // 주문 내역 저장 함수를 제공하는 클래스
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -24,6 +25,35 @@ public class Order {
 			this.option = option;
 
 			orderhistory.add(this);
+		}
+
+		public static void MakeOrderHistory(String name, int price, int time, String option) {
+			boolean exists = false;
+			for (NoOverLap item : NoOverLap.noOverLap) {
+				if (item.name.equals(name) && ((item.option == null && option == null)
+						|| (item.option != null && item.option.equals(option)))) {
+					new OrderHistory(name, price, time, null);
+					item.count++;
+					exists = true;
+					break;
+				}
+			}
+			if (!exists) {
+				new NoOverLap(name, price, time, option, 1);
+			}
+		}
+	}
+
+	public static class NoOverLap extends OrderHistory {
+		public int count; // 주문 내역 개수
+
+		public static ArrayList<NoOverLap> noOverLap = new ArrayList<>();
+
+		public NoOverLap(String name, int price, int time, String option, int count) {
+			super(name, price, time, option);
+			this.count = count;
+
+			noOverLap.add(this);
 		}
 	}
 
@@ -65,15 +95,15 @@ public class Order {
 		public static boolean storageMenu(String name) {
 			for (MenuList.MenuItem item : MenuList.hamburgers) {
 				if (name.equals(item.name))
-					new OrderHistory(item.name, item.price, item.time, null);
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, null);
 			}
 			for (MenuList.MenuItem item : MenuList.desserts) {
 				if (name.equals(item.name))
-					new OrderHistory(item.name, item.price, item.time, null);
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, null);
 			}
 			for (MenuList.MenuItem item : MenuList.beverages) {
 				if (name.equals(item.name))
-					new OrderHistory(item.name, item.price, item.time, null);
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, null);
 			}
 			return false;
 		}
@@ -90,7 +120,7 @@ public class Order {
 				if (item instanceof MenuList.Hamburger) {
 					MenuList.Hamburger hamburger = (MenuList.Hamburger) item;
 					if (name.equals(hamburger.name) && set == hamburger.set)
-						new OrderHistory(hamburger.name, hamburger.price, hamburger.time, null);
+						OrderHistory.MakeOrderHistory(hamburger.name, hamburger.price, hamburger.time, null);
 				}
 			}
 			return false;
@@ -221,7 +251,7 @@ public class Order {
 					else if (answer.equals("선데아이스크림"))
 						optioningIcecream(item);
 					else
-						new OrderHistory(item.name, item.price, item.time, null);
+						OrderHistory.MakeOrderHistory(item.name, item.price, item.time, null);
 					return true;
 				}
 			}
@@ -235,14 +265,13 @@ public class Order {
 				String buffer = scanner.nextLine();
 
 				if (buffer.matches(".*(레귤러|기본|보통|R|r)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, null);
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, null);
 					break;
-				} 
-				else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
+				} else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
 					String nameLarge = (item.name).substring(0, (item.name).length() - 3) + "(L)";
 					for (MenuList.MenuItem menu : MenuList.desserts) {
 						if (nameLarge.equals(menu.name))
-							new OrderHistory(menu.name, menu.price, menu.time, null);
+							OrderHistory.MakeOrderHistory(menu.name, menu.price, menu.time, null);
 					}
 					break;
 				}
@@ -256,13 +285,13 @@ public class Order {
 				System.out.print(">>");
 				String answer = scanner.nextLine();
 				if (answer.matches(".*(어니언)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, "어니언");
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, "어니언");
 					break;
 				} else if (answer.matches(".*(치즈)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, "치즈");
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, "치즈");
 					break;
 				} else if (answer.matches(".*(칠리)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, "칠리");
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, "칠리");
 					break;
 				}
 			}
@@ -275,13 +304,13 @@ public class Order {
 				System.out.print(">>");
 				String answer = scanner.nextLine();
 				if (answer.matches(".*(초코쿠키|쿠키)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, "초코쿠키");
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, "초코쿠키");
 					break;
 				} else if (answer.matches(".*(스트로베리|딸기|베리)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, "스트로베리");
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, "스트로베리");
 					break;
 				} else if (answer.matches(".*(더블초코)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, "더블초코");
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, "더블초코");
 					break;
 				}
 			}
@@ -294,13 +323,13 @@ public class Order {
 				System.out.print(">>");
 				String answer = scanner.nextLine();
 				if (answer.matches(".*(플레인)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, "플레인");
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, "플레인");
 					break;
 				} else if (answer.matches(".*(스트로베리|딸기)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, "스트로베리");
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, "스트로베리");
 					break;
 				} else if (answer.matches(".*(초코)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, "허쉬초코");
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, "허쉬초코");
 					break;
 				}
 			}
@@ -330,7 +359,7 @@ public class Order {
 			} else {
 				for (MenuList.MenuItem item : MenuList.beverages) {
 					if (answer.equals(item.name)) {
-						new OrderHistory(item.name, item.price, item.time, null);
+						OrderHistory.MakeOrderHistory(item.name, item.price, item.time, null);
 						return true;
 					}
 				}
@@ -345,13 +374,13 @@ public class Order {
 				String buffer = scanner.nextLine();
 
 				if (buffer.matches(".*(레귤러|기본|보통|R|r)+.*")) {
-					new OrderHistory(item.name, item.price, item.time, null);
+					OrderHistory.MakeOrderHistory(item.name, item.price, item.time, null);
 					break;
 				} else if (buffer.matches(".*(라지|큰|특|L|l)+.*")) {
 					String nameLarge = (item.name).substring(0, (item.name).length() - 3) + "(L)";
 					for (MenuList.MenuItem menu : MenuList.beverages) {
 						if (nameLarge.equals(menu.name))
-							new OrderHistory(menu.name, menu.price, menu.time, null);
+							OrderHistory.MakeOrderHistory(menu.name, menu.price, menu.time, null);
 					}
 					break;
 				}
