@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Order {
-	static Scanner scanner = new Scanner(System.in);
+	static Scanner scanner = new Scanner(System.in, "ms949");
 
 	// 주문 내역 저장을 위한 class
 	static class OrderHistory {

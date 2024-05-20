@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Function {
-	static Scanner scanner = new Scanner(System.in);
+	static Scanner scanner = new Scanner(System.in, "ms949");
 
 	static String yes = ".*(예|응|네|그래|오냐|ㅇ|(?i)y|(?i)yes)+.*";
 	static String no = ".*(아니|별로|그닥|글쎄|그만|ㄴ|(?i)no|(?i)n)+.*";
@@ -40,12 +40,14 @@ public class Function {
 		for (Order.NoOverLap item : Order.NoOverLap.noOverLap) {
 			itemName = item.name;
 			itemOptions = item.option == null ? "" : "(" + item.option + ")";
-			System.out.printf(Color.txtOrderlist("%-11s%-5s\t%d\t%5d원\t\n"), itemName, itemOptions, item.count,
+			System.out.printf(Color.txtOrderlist("%-11s%-5s\t%d\t%5d원\t"), itemName, itemOptions, item.count,
 					item.price * item.count);
+			System.out.println("");
 		}
 
-		System.out.println(Color.txtOrderlist("————————————————————————————————————————"));
-		System.out.printf(Color.txtOrderlist("합계\t\t\t\t%5d원\t\n"), totalAmount);
+		System.out.println(Color.txtOrderlist("----------------------------------------"));
+		System.out.printf(Color.txtOrderlist("합계\t\t\t\t%5d원\t"), totalAmount);
+		System.out.println("");
 		System.out.println(Color.txtOrderlist("*세트 가격이 자동으로 적용됩니다.*\t"));
 		System.out.println(Color.txtOrderlist("========================================"));
 

@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Pickup {
-	static Scanner scanner = new Scanner(System.in);
+	static Scanner scanner = new Scanner(System.in, "ms949");
 
 	static int isPackaging = -1; // 포장 혹은 매장 선택 변수
 
