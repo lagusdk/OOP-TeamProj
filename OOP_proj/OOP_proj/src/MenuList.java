@@ -107,41 +107,44 @@ public class MenuList {
 	// 메뉴판 출력
 	public static void printMenu() {
 		System.out.println(Color.txtMenu("=================== 메뉴판 =================="));
-		System.out.println(Color.txtMenu("————————————— 햄버거(단품/세트) —————————————"));
+		System.out.println(Color.txtMenu("------------- 햄버거(단품/세트) -------------"));
 		int i = 0;
 		for (MenuItem item : hamburgers) {
 			if (item instanceof MenuList.Hamburger) {
 				MenuList.Hamburger hamburger = (MenuList.Hamburger) item;
 				if (hamburger.set) {
 					if (item.name.length() < 7)
-						System.out.printf(Color.txtMenu("%s\t\t\t%d원\t%5d원\n"), item.name, hamburgersSinglePrice[i], item.price);
+						System.out.printf(Color.txtMenu("%s\t\t\t%d원\t%5d원"), item.name, hamburgersSinglePrice[i], item.price);
 					else
-						System.out.printf(Color.txtMenu("%s\t\t%d원\t%5d원\n"), item.name, hamburgersSinglePrice[i], item.price);
+						System.out.printf(Color.txtMenu("%s\t\t%d원\t%5d원"), item.name, hamburgersSinglePrice[i], item.price);
 					i++;
+					System.out.println("");
 				}
 			}
 		}
 
 		System.out.println("");
 
-		System.out.println(Color.txtMenu("————————————————— 디저트 —————————————————"));
+		System.out.println(Color.txtMenu("----------------- 디저트 -----------------"));
 		for (MenuItem item : desserts) {
 			if (item.name.length() < 7)
-				System.out.printf(Color.txtMenu("%s\t\t\t\t%5d원\n"), item.name, item.price);
+				System.out.printf(Color.txtMenu("%s\t\t\t\t%5d원"), item.name, item.price);
 			else
-				System.out.printf(Color.txtMenu("%s\t\t\t%5d원\n"), item.name, item.price);
+				System.out.printf(Color.txtMenu("%s\t\t\t%5d원"), item.name, item.price);
+			System.out.println("");
 		}
 
 		System.out.println("");
 
-		System.out.println(Color.txtMenu("—————————————————— 음료 ——————————————————"));
+		System.out.println(Color.txtMenu("------------------ 음료 ------------------"));
 		for (MenuItem item : beverages) {
 			if (item.name.length() < 5)
-				System.out.printf(Color.txtMenu("%s\t\t\t\t%5d원\n"), item.name, item.price);
+				System.out.printf(Color.txtMenu("%s\t\t\t\t%5d원"), item.name, item.price);
 			else if (item.name.length() < 8)
-				System.out.printf(Color.txtMenu("%s\t\t\t\t%5d원\n"), item.name, item.price);
+				System.out.printf(Color.txtMenu("%s\t\t\t\t%5d원"), item.name, item.price);
 			else
-				System.out.printf(Color.txtMenu("%s\t\t\t%5d원\n"), item.name, item.price);
+				System.out.printf(Color.txtMenu("%s\t\t\t%5d원"), item.name, item.price);
+			System.out.println("");
 		}
 		System.out.println(Color.txtMenu("=========================================="));
 		System.out.println("");

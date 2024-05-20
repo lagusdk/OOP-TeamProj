@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-	static Scanner scanner = new Scanner(System.in);
+	static Scanner scanner = new Scanner(System.in, "ms949");
 
 	static MenuList menulist = new MenuList(); // 생성자 함수를 이용한 메뉴 추가를 위해 클래스 파일 임포트
 

@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public abstract class Payment {
-	static Scanner scanner = new Scanner(System.in);
+	static Scanner scanner = new Scanner(System.in, "ms949");
 
 	static int random = (int) ((Math.random() * (50 - 0)) + 1); // 난수를 이용한 주문 번호 생성
 
